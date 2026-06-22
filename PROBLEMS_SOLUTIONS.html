@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Luyện Viết IELTS Writing - Ms Lê Hằng English</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & THEMES --- */
+        :root {
+            --primary-color: #4A00E0;
+            --secondary-color: #8E2DE2;
+            --bg-gradient: linear-gradient(135deg, #4A00E0, #8E2DE2);
+            --body-bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --border-radius-lg: 20px;
+            --border-radius-md: 12px;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Dynamic Themes Classes based on Topic */
+        .theme-education {
+            --primary-color: #10B981;
+            --secondary-color: #059669;
+            --bg-gradient: linear-gradient(135deg, #10B981, #059669);
+        }
+        .theme-food {
+            --primary-color: #F59E0B;
+            --secondary-color: #D97706;
+            --bg-gradient: linear-gradient(135deg, #F59E0B, #D97706);
+        }
+        .theme-crimes {
+            --primary-color: #EF4444;
+            --secondary-color: #DC2626;
+            --bg-gradient: linear-gradient(135deg, #EF4444, #DC2626);
+        }
+        .theme-family {
+            --primary-color: #3B82F6;
+            --secondary-color: #2563EB;
+            --bg-gradient: linear-gradient(135deg, #3B82F6, #2563EB);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating SVGs Background Effect */
+        .bg-svg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.06;
+            animation: backgroundMove 30s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo-zone h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+            transition: var(--transition-smooth);
+        }
+
+        .header-logo-zone p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-badge {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 25px;
+            gap: 25px;
+        }
+
+        /* Sidebar Left */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding-left: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border: 3px solid #e2e8f0;
+            border-bottom: 6px solid #e2e8f0;
+            border-radius: var(--border-radius-md);
+            padding: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .topic-card.active {
+            border-color: var(--primary-color);
+            border-bottom-width: 6px;
+            background: linear-gradient(to bottom right, #ffffff, rgba(0,0,0,0.01));
+            transform: translateY(2px);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .topic-card .badge {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .topic-card.active .badge {
+            background: var(--bg-gradient);
+            color: white;
+        }
+
+        .topic-card:not(.active) .badge {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .topic-card h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        /* Content Area Right */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 0; /* Anti-overflow */
+        }
+
+        /* Prompt Display Box */
+        .prompt-box {
+            background: var(--card-bg);
+            border: 3px solid var(--primary-color);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--bg-gradient);
+        }
+
+        .prompt-tag {
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .prompt-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* Navigation Tabs Control */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            background: #e2e8f0;
+            padding: 6px;
+            border-radius: var(--border-radius-md);
+        }
+
+        .tab-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #4a5568;
+            cursor: pointer;
+            border-radius: calc(var(--border-radius-md) - 4px);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        /* Tab Content Display Pane */
+        .tab-pane {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 3px solid #e2e8f0;
+            border-bottom: 8px solid #e2e8f0;
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CONTENT SPECIFIC STYLES --- */
+        
+        /* Outline & Framework UI */
+        .framework-box {
+            background: #f7fafc;
+            border-left: 5px solid #4a5568;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .outline-section {
+            margin-bottom: 25px;
+        }
+        
+        .outline-section-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 6px;
+        }
+
+        .outline-item {
+            margin-left: 15px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .eng-phrase {
+            color: #b7791f;
+            font-weight: 700;
+            background: #fefcbf;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Image Reference Container */
+        .img-ref-container {
+            background: #edf2f7;
+            border: 2px solid #cbd5e0;
+            padding: 12px;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Essay UI */
+        .essay-paragraph-wrapper {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        .essay-paragraph-wrapper:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .essay-type-tag {
+            font-size: 0.75rem;
+            font-weight: 900;
+            background: #e2e8f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .essay-text {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            text-align: justify;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .translation-toggle-btn {
+            background: #edf2f7;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-top: 12px;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 2px solid transparent;
+        }
+
+        .translation-toggle-btn:hover {
+            background: var(--card-bg);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .translation-box {
+            margin-top: 12px;
+            background: #f7fafc;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: #4a5568;
+            display: none;
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Table Design */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .vocab-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 15px;
+        }
+
+        .vocab-table th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-weight: 800;
+            padding: 14px;
+            text-align: left;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .vocab-table th:first-child { border-top-left-radius: var(--border-radius-md); }
+        .vocab-table th:last-child { border-top-right-radius: var(--border-radius-md); }
+
+        .vocab-table td {
+            padding: 14px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 1rem;
+            line-height: 1.5;
+            vertical-align: top;
+        }
+
+        .vocab-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .vocab-table tr:hover td {
+            background: rgba(0,0,0,0.01);
+        }
+
+        .word-cell {
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .type-cell {
+            font-weight: 700;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .desc-cell {
+            font-weight: 600;
+        }
+
+        .grammar-section {
+            margin-top: 40px;
+        }
+
+        .grammar-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .grammar-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grammar-title span {
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .grammar-desc {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .grammar-example {
+            background: #ffffff;
+            border-left: 3px solid #10b981;
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        /* --- GAMIFIED QUIZ UI --- */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .quiz-item-box {
+            background: var(--card-bg);
+            border: 3px solid #e2e8f0;
+            border-bottom: 6px solid #e2e8f0;
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .quiz-q-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            color: var(--text-main);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media(min-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background: var(--card-bg);
+            border: 3px solid #e2e8f0;
+            border-bottom: 6px solid #e2e8f0;
+            border-radius: var(--border-radius-md);
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            transform: translateY(-2px);
+            border-color: #cbd5e0;
+        }
+
+        .option-btn:active:not(.disabled) {
+            transform: translateY(2px);
+            border-bottom-width: 3px;
+        }
+
+        /* Option State Classes */
+        .option-btn.correct-state {
+            background-color: #ecfdf5 !important;
+            border-color: var(--correct-color) !important;
+            border-bottom-color: #047857 !important;
+            color: #065f46 !important;
+        }
+
+        .option-btn.wrong-state {
+            background-color: #fff5f5 !important;
+            border-color: var(--wrong-color) !important;
+            border-bottom-color: #b91c1c !important;
+            color: #991b1b !important;
+        }
+
+        .option-btn.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Explanation Box */
+        .explanation-card {
+            margin-top: 15px;
+            background: #f8fafc;
+            border: 2px solid #edf2f7;
+            border-radius: var(--border-radius-md);
+            padding: 15px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .explanation-card.visible {
+            display: block;
+        }
+
+        .explanation-title {
+            font-weight: 800;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .explanation-body {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        /* Shake & Correct Animation Mechanics */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .shake-anim {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Submit Action Section */
+        .submit-action-zone {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .master-submit-btn {
+            background: var(--bg-gradient);
+            color: white;
+            border: none;
+            border-bottom: 6px solid rgba(0,0,0,0.2);
+            padding: 16px 50px;
+            font-size: 1.25rem;
+            font-weight: 900;
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .master-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+        }
+
+        .master-submit-btn:active {
+            transform: translateY(4px);
+            border-bottom-width: 2px;
+        }
+
+        /* --- MODAL SCORE REPORT --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            width: 90%;
+            max-width: 550px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 4px solid var(--primary-color);
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.open .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-emoji {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .modal-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .modal-feedback {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .modal-close-btn {
+            background: #e2e8f0;
+            color: #2d3748;
+            border: none;
+            border-bottom: 4px solid #cbd5e0;
+            padding: 12px 35px;
+            font-size: 1rem;
+            font-weight: 800;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close-btn:hover {
+            background: #cbd5e0;
+        }
+
+        /* Confetti Elements */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.8;
+            top: -10px;
+            z-index: 999;
+            animation: fall 2.5s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media(max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .tabs-nav {
+                flex-wrap: wrap;
+            }
+            .tab-btn {
+                flex: unset;
+                width: calc(50% - 5px);
+            }
+        }
+
+        @media(max-width: 640px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .tab-btn {
+                width: 100%;
+            }
+            .prompt-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body class="theme-education">
+
+    <!-- Floating SVG Layer for Gamified Background Styling -->
+    <div class="bg-svg-layer" id="bgSvgPattern"></div>
+
+    <!-- Header System -->
+    <header>
+        <div class="header-logo-zone">
+            <h1 id="sysLogo">Ms Lê Hằng English</h1>
+            <p id="sysSubHeading">Discussion Essay</p>
+        </div>
+        <div class="header-badge">IELTS Writing Task 2 System</div>
+    </header>
+
+    <!-- Main Workspace Dashboard -->
+    <main class="main-container">
+        
+        <!-- Left Column Sidebar -->
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Danh sách bài học</h3>
+            <div id="sidebarTopicList"></div>
+        </aside>
+
+        <!-- Right Column Main Dashboard Screen Area -->
+        <section class="content-area">
+            
+            <!-- Target Prompt Content Frame Container -->
+            <div class="prompt-box">
+                <span class="prompt-tag">Đề bài đang chọn</span>
+                <div class="prompt-text" id="displayPromptText">Đang tải dữ liệu đề học...</div>
+            </div>
+
+            <!-- Operational Control Navigation Tabs Bar System -->
+            <nav class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(0)">
+                    <span>📝</span> Template + Outline
+                </button>
+                <button class="tab-btn" onclick="switchTab(1)">
+                    <span>🌟</span> Bài Mẫu Chuẩn (250+)
+                </button>
+                <button class="tab-btn" onclick="switchTab(2)">
+                    <span>📊</span> Từ Vựng & Cấu Trúc
+                </button>
+                <button class="tab-btn" onclick="switchTab(3)">
+                    <span>🔥</span> 20 Câu Hỏi Chiến Thuật
+                </button>
+            </nav>
+
+            <!-- TAB 1 CONTENT PANE -->
+            <div id="tabPane-0" class="tab-pane active">
+                <div class="img-ref-container">
+                    <span>🖼️</span> Tài liệu tham khảo cấu trúc: <strong>"image_f0c0d7.png"</strong> (Cấu trúc Reasons - Solutions Framework chuẩn hóa).
+                </div>
+                <div id="tabContent-Outline"></div>
+            </div>
+
+            <!-- TAB 2 CONTENT PANE -->
+            <div id="tabPane-1" class="tab-pane">
+                <div id="tabContent-Essay"></div>
+            </div>
+
+            <!-- TAB 3 CONTENT PANE -->
+            <div id="tabPane-2" class="tab-pane">
+                <div id="tabContent-Vocab"></div>
+            </div>
+
+            <!-- TAB 4 CONTENT PANE -->
+            <div id="tabPane-3" class="tab-pane">
+                <div class="quiz-container" id="tabContent-Quiz"></div>
+                <div class="submit-action-zone">
+                    <button class="master-submit-btn" onclick="evaluateQuizSystem()">Nộp Bài Luyện Tập 🔥</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- SCORE BOARD MODAL POPUP DISPLAY -->
+    <div class="modal-overlay" id="scoreModal">
+        <div class="modal-card">
+            <div class="modal-emoji" id="modalEmoji">🎉</div>
+            <div class="modal-title" id="modalTitle">Chúc Mừng!</div>
+            <div class="modal-score" id="modalScoreValue">18/20</div>
+            <div class="modal-feedback" id="modalFeedbackText">Tuyệt vời! Bạn quả là một thiên tài ngôn ngữ thực thụ!</div>
+            <button class="modal-close-btn" onclick="closeScoreModal()">Xem Lại Đáp Án Chi Tiết 🔍</button>
+        </div>
+    </div>
+
+    <!-- SYSTEM DATABASE STORAGE OBJECT MAPPING ALL TOPIC ASSETS -->
+    <script>
+        const DATA_STORE = [
+            {
+                id: 1,
+                theme: "theme-education",
+                emoji1: "🧑‍🏫",
+                emoji2: "📚",
+                subHeading: "Education - Student Concentration",
+                rawPrompt: "Many students/children find it difficult to concentrate or pay attention at school. What are the reasons? What could be done to solve this problem?",
+                outlineData: {
+                    intro: [
+                        { q: "Câu 1 – Paraphrase đề bài", desc: "It is believed that some students/ <span class='eng-phrase'>PUPILS AND KIDS</span> have difficulty/ <span class='eng-phrase'>STRUGGLE WITH</span> concentrating during lessons <span class='eng-phrase'>AT SCHOOL</span>." },
+                        { q: "Câu 2 – Trả lời câu hỏi đề bài", desc: "This problem happens due to some reasons = <span class='eng-phrase'>THE OVERUSE OF DIGITAL DEVICES AND UNATTRACTIVE TEACHING METHODS</span>, and effective measures <span class='eng-phrase'>SUCH AS RESTRICTING SCREEN TIME AND IMPROVING TEACHING WAYS</span> should be taken to mitigate it." }
+                    ],
+                    body1: {
+                        topic: "Several reasons can explain <span class='eng-phrase'>WHY SV</span> children lack concentration during lessons.",
+                        ideas: [
+                            { core: "Sự lạm dụng quá đà điện thoại thông minh và mạng xã hội ngoài giờ học (<span class='eng-phrase'>the excessive use of smartphones and social media outside of school hours</span>) ảnh hưởng nghiêm trọng khả năng chú ý của trẻ.", impact: "Thanh thiếu niên liên tục tiếp xúc các video ngắn và nội dung nhanh qua TikTok, Instagram làm <span class='eng-phrase'>attention spans reduce dramatically</span>. Do đó ngồi học các tác vụ dài hơn như bài giảng đòi hỏi sự tập trung liên tục trở nên khó khăn (<span class='eng-phrase'>demanding</span>) hơn bao giờ hết." },
+                            { core: "Phương pháp giảng dạy nhàm chán, thiếu hấp dẫn (<span class='eng-phrase'>boring and unengaging teaching methods</span>) cũng góp phần gây ra vấn đề này.", impact: "Nếu giáo viên phụ thuộc quá nhiều vào bài giảng một chiều, chỉ đọc từ sách giáo khoa mà không tương tác, học sinh lập tức mất hứng thú, sự chú ý bắt đầu dao động nên không thể tiếp thu bài học." }
+                        ]
+                    },
+                    body2: {
+                        topic: "However, there are various workable solutions that each individual could take to tackle this <span class='eng-phrase'>ISSUE</span>.",
+                        ideas: [
+                            { core: "Giải pháp ban đầu là phụ huynh nên giới hạn thời gian sử dụng thiết bị di động (<span class='eng-phrase'>limit screen time for using mobile devices</span>).", impact: "Ví dụ cha mẹ quy định (<span class='eng-phrase'>regulate / control</span>) các giờ không thiết bị, không cho con dùng sau 9 giờ tối. Điều này đảm bảo trẻ có cơ hội nghỉ ngơi tâm trí khỏi sự kích thích kỹ thuật số, duy trì sự tập trung tốt hơn vào ngày hôm sau." },
+                            { core: "Biện pháp khác là giáo viên nên áp dụng phương pháp dạy học tương tác (<span class='eng-phrase'>teachers should apply interactive teaching methods</span>) trong bài giảng.", impact: "Tích hợp thảo luận nhóm, trò chơi giáo dục tương tác (<span class='eng-phrase'>interactive educational games</span>) và ví dụ thực tế giúp chuyển đổi học sinh từ người nghe thụ động thành người tham gia chủ động (<span class='eng-phrase'>passive listeners to active participants</span>), giúp họ gắn kết hơn (<span class='eng-phrase'>engage with lesson content</span>), tập trung lâu hơn." }
+                        ]
+                    },
+                    conclusion: "In conclusion, the problem <span class='eng-phrase'>OF STUDENT'S DISTRACTION DURING LESSONS</span> stems from excessive technology device use and dull teaching approaches, but parental guidance on device usage <span class='eng-phrase'>AND MORE APPEALING TEACHING METHODS</span> are able to address this problem."
+                },
+                essayData: [
+                    { type: "Introduction", en: "It is believed that some students, including pupils and kids, struggle with concentrating during lessons at school. This problem happens due to some reasons, namely the overuse of digital devices and unattractive teaching methods, and effective measures such as restricting screen time and improving teaching ways should be taken to mitigate it.", vi: "Người ta tin rằng một số học sinh, bao gồm cả học sinh nhỏ tuổi và trẻ em, gặp khó khăn trong việc tập trung trong các bài học ở trường. Vấn đề này xảy ra do một số nguyên nhân, cụ thể là việc lạm dụng quá mức các thiết bị kỹ thuật số và phương pháp giảng dạy kém hấp dẫn, và các biện pháp hiệu quả như hạn chế thời gian sử dụng màn hình và cải tiến cách giảng dạy cần được thực hiện để giảm thiểu tình trạng này." },
+                    { type: "Body 1", en: "Several reasons can explain why children lack concentration during lessons. First of all, the excessive use of smartphones and social media outside of school hours significantly affects children's attention ability. This is because teenagers are constantly exposed to short videos and quick content through online platforms like TikTok and Instagram, resulting in their attention spans reducing dramatically. As a result, sitting through longer tasks such as lectures, which require sustained concentration, becomes more demanding than ever. Secondly, boring and unengaging teaching methods also contribute to this problem. If teachers depend too much on one-way lectures and only read from textbooks without interaction, students will immediately lose interest, and their attention begins to waver. Therefore, it is nearly impossible for them to absorb the lesson content.", vi: "Một số nguyên nhân có thể giải thích tại sao trẻ em thiếu tập trung trong các giờ học. Trước hết, việc sử dụng quá mức điện thoại thông minh và mạng xã hội ngoài giờ học ảnh hưởng đáng kể đến khả năng chú ý của trẻ. Điều này là do thanh thiếu niên liên tục tiếp xúc với các video ngắn và nội dung nhanh thông qua các nền tảng trực tuyến như TikTok và Instagram, dẫn đến khoảng thời gian tập trung của họ bị giảm mạnh. Kết quả là, việc ngồi học qua các nhiệm vụ dài hơn chẳng hạn như các bài giảng, vốn đòi hỏi sự tập trung lâu dài, trở nên khắt khe hơn bao giờ hết. Thứ hai, phương pháp giảng dạy nhàm chán và không lôi cuốn cũng góp phần vào vấn đề này. Nếu giáo viên phụ thuộc quá nhiều vào các bài giảng một chiều và chỉ đọc từ sách giáo khoa mà không có sự tương tác, học sinh sẽ ngay lập tức mất hứng thú và sự chú ý của họ bắt đầu lung lay. Do đó, họ gần như không thể hấp thụ được nội dung bài học." },
+                    { type: "Body 2", en: "However, there are various workable solutions that each individual could take to tackle this issue. The initial solution is that parents should limit screen time for using mobile devices. For instance, parents can regulate and control device-free hours, and not allow their children to use mobile devices after 9 p.m. This assures that children have chances to rest their minds from digital stimulation, and maintain better focus throughout lessons and the following day. Another measure is that teachers should apply interactive teaching methods during their lectures. This means incorporating group discussions, interactive educational games, and real-life examples. They can help transform students from passive listeners to active participants, allowing them to engage more with lesson content. Thanks to this, students can stay focused better in longer lessons and retain information more effectively.", vi: "Tuy nhiên, có nhiều giải pháp khả thi khác nhau mà mỗi cá nhân có thể thực hiện để giải quyết vấn đề này. Giải pháp ban đầu là cha mẹ nên giới hạn thời gian sử dụng các thiết bị di động. Ví dụ, cha mẹ có thể quy định và kiểm soát số giờ không sử dụng thiết bị, và không cho phép con cái sử dụng thiết bị di động sau 9 giờ tối. Điều này đảm bảo rằng trẻ em có cơ hội để tâm trí được nghỉ ngơi khỏi sự kích thích kỹ thuật số, và duy trì sự tập trung tốt hơn trong suốt các bài học và ngày hôm sau. Một biện pháp khác là giáo viên nên áp dụng các phương pháp giảng dạy tương tác trong các bài giảng của họ. Điều này có nghĩa là kết hợp thảo luận nhóm, các trò chơi giáo dục tương tác và các ví dụ thực tế. Chúng có thể giúp chuyển đổi học sinh từ những người nghe thụ động thành những người tham gia chủ động, cho phép họ tương tác nhiều hơn với nội dung bài học. Nhờ có điều này, học sinh có thể tập trung tốt hơn trong các bài học dài hơn và ghi nhớ thông tin hiệu quả hơn." },
+                    { type: "Conclusion", en: "In conclusion, the problem of student’s distraction during lessons stems from excessive technology device use and dull teaching approaches, but parental guidance on device usage and more appealing teaching methods are able to address this problem.", vi: "Tóm lại, vấn đề mất tập trung của học sinh trong giờ học bắt nguồn từ việc sử dụng thiết bị công nghệ quá mức và các phương pháp tiếp cận giảng dạy mờ nhạt, nhưng sự hướng dẫn của cha mẹ về việc sử dụng thiết bị và các phương pháp giảng dạy hấp dẫn hơn có khả năng giải quyết vấn đề này." }
+                ],
+                vocabTable: [
+                    { word: "Struggle with", type: "v", desc: "Vật lộn, gặp khó khăn lớn với điều gì" },
+                    { word: "Mitigate", type: "v", desc: "Giảm nhẹ, làm dịu bớt tính nghiêm trọng" },
+                    { word: "Excessive", type: "adj", desc: "Quá mức, thừa thãi quá độ" },
+                    { word: "Exposure", type: "n", desc: "Sự tiếp xúc, sự phơi nhiễm trước cái gì" },
+                    { word: "Attention span", type: "n", desc: "Khoảng thời gian tập trung chú ý" },
+                    { word: "Dramatically", type: "adv", desc: "Một cách đột ngột, đáng kể, mạnh mẽ" },
+                    { word: "Sustained", type: "adj", desc: "Được duy trì liên tục, bền bỉ" },
+                    { word: "Demanding", type: "adj", desc: "Đòi hỏi cao, khắt khe, tốn nhiều công sức" },
+                    { word: "Unengaging", type: "adj", desc: "Không lôi cuốn, không hấp dẫn, tẻ nhạt" },
+                    { word: "Contribute to", type: "v", desc: "Góp phần vào, đóng góp gây ra việc gì" },
+                    { word: "Waver", type: "v", desc: "Dao động, lung lay, không vững vàng" },
+                    { word: "Absorb", type: "v", desc: "Hấp thụ, tiếp thu (kiến thức)" },
+                    { word: "Workable", type: "adj", desc: "Khả thi, có thể thực hiện thực tế" },
+                    { word: "Regulate", type: "v", desc: "Điều tiết, quy định bằng luật/quy tắc" },
+                    { word: "Stimulation", type: "n", desc: "Sự kích thích, thúc đẩy hoạt động" },
+                    { word: "Incorporate", type: "v", desc: "Tích hợp, kết hợp thành phần chung" },
+                    { word: "Passive", type: "adj", desc: "Thụ động, chịu sự tác động" },
+                    { word: "Participant", type: "n", desc: "Người tham gia vào một hoạt động" },
+                    { word: "Retain", type: "v", desc: "Giữ lại, ghi nhớ lại được lâu dài" },
+                    { word: "Distraction", type: "n", desc: "Sự mất tập trung, sự xao nhãng" }
+                ],
+                grammarData: [
+                    { title: "Struggle with + V-ing", desc: "Diển tả việc gặp rất nhiều khó khăn khi thực hiện hành động nào đó.", ex: "Students struggle with concentrating during long lectures." },
+                    { title: "Due to + Noun Phrase", desc: "Cấu trúc chỉ nguyên nhân khách quan, trang trọng trong văn viết.", ex: "This problem happens due to the overuse of digital devices." },
+                    { title: "Resulting in + Noun/V-ing", desc: "Mệnh đề quan hệ rút gọn chỉ kết quả hệ quả trực tiếp.", ex: "They watch short videos, resulting in their attention spans reducing dramatically." },
+                    { title: "It is nearly impossible for someone to do something", desc: "Cấu trúc nhấn mạnh tính bất khả thi của một hành động đối với đối tượng nào đó.", ex: "It is nearly impossible for them to absorb the lesson content." },
+                    { title: "Should be taken to mitigate something", desc: "Thể bị động với động từ khuyết thiếu dùng đề xuất giải pháp yều cầu cấp bách.", ex: "Effective measures should be taken to mitigate it." },
+                    { title: "Depend too much on", desc: "Phụ thuộc quá mức vào cái gì đó, mang sắc thái tiêu cực.", ex: "If teachers depend too much on one-way lectures, students lose interest." },
+                    { title: "Assure that + Clause", desc: "Đảm bảo chắc chắn rằng một sự việc tốt đẹp sẽ xảy ra.", ex: "This assured that children have chances to rest their minds." },
+                    { title: "Transform someone from A to B", desc: "Biến đổi hoàn toàn ai đó từ trạng thái tính chất A sang trạng thái B tích cực hơn.", ex: "Interactive games transform students from passive listeners to active participants." },
+                    { title: "Engage with", desc: "Tương tác sâu và gắn kết chặt chẽ với cái gì.", ex: "They can engage more with lesson content." },
+                    { title: "Stem from", desc: "Bắt nguồn từ nguyên nhân gốc rễ nào.", ex: "The problem of student's distraction stems from excessive technology device use." }
+                ],
+                quizData: [
+                    { q: "Từ đồng nghĩa nào phù hợp nhất cho 'students' được nhắc tới trong bài mẫu?", a: "pupils and kids", b: "recruits", c: "senior citizens", d: "employers", correct: "A", exp: "Bài mẫu paraphrase học sinh thành 'pupils and kids' ngay câu mở đầu." },
+                    { q: "Nguyên nhân khách quan đầu tiên khiến học sinh mất tập trung ngoài giờ học là gì?", a: "Lạm dụng smartphone và mạng xã hội", b: "Hệ thống nhà tù truyền thống", c: "Thiếu chương trình dạy tài chính", d: "Giá lương thực tăng cao", correct: "A", exp: "Đoạn Body 1 nói rõ 'excessive use of smartphones and social media outside of school hours'." },
+                    { q: "Các nền tảng mạng xã hội nào được liệt kê làm giảm khoảng tập trung của học sinh?", a: "TikTok và Instagram", b: "Facebook và Youtube", c: "X và LinkedIn", d: "Snapchat và Reddit", correct: "A", exp: "Văn bản bài mẫu chỉ ra rõ tên hai nền tảng 'TikTok and Instagram'." },
+                    { q: "Từ 'dramatically' thuộc loại từ gì trong câu và nghĩa là gì?", a: "Trạng từ - Một cách đột ngột, mạnh mẽ", b: "Tính từ - Tẻ nhạt", c: "Danh từ - Sự xao nhãng", d: "Động từ - Giảm nhẹ", correct: "A", exp: "'Dramatically' là trạng từ bổ nghĩa cho động từ reduce, nghĩa là giảm mạnh mẽ, đột ngột." },
+                    { q: "Theo bài viết, các bài giảng dài ở trường đòi hỏi kiểu tập trung nào?", a: "Sustained concentration (Tập trung liên tục)", b: "Passive listening (Nghe thụ động)", c: "Financial management (Quản lý tài chính)", d: "Vocational training (Học nghề)", correct: "A", exp: "Văn bản sử dụng cụm 'lectures, which require sustained concentration'." },
+                    { q: "Phương pháp giảng dạy bị chỉ trích gây ra xao nhãng trong Body 1 có đặc điểm gì?", a: "Boring and unengaging (Nhàm chán, một chiều)", b: "Interactive games (Trò chơi tương tác)", c: "Real-life examples (Ví dụ thực tế)", d: "Group discussions (Thảo luận nhóm)", correct: "A", exp: "Bài viết nêu 'boring and unengaging teaching methods' và giảng dạy một chiều khiến học sinh mất tập trung." },
+                    { q: "Học sinh sẽ làm gì nếu giáo viên chỉ đọc từ sách giáo khoa mà không tương tác?", a: "Immediately lose interest and attention wavers", b: "Understand personal finance perfectly", c: "Learn traditional skills from elderly", d: "Build shared experiences directly", correct: "A", exp: "Nguyên văn: 'students will immediately lose interest, and their attention begins to waver'." },
+                    { q: "Phụ huynh được khuyên làm gì để giải quyết vấn đề mất tập trung?", a: "Limit screen time for using mobile devices", b: "Fund educational programs in prison", c: "Buy more groceries with discount", d: "Organize phone-free outdoor events", correct: "A", exp: "Body 2 nêu giải pháp đầu tiên: 'parents should limit screen time for using mobile devices'." },
+                    { q: "Mốc thời gian cụ thể nào được gợi ý để cấm học sinh dùng thiết bị di động?", a: "Sau 9 giờ tối (after 9 p.m.)", b: "Sau 10 giờ tối", c: "Sau 8 giờ tối", d: "Cả ngày không sử dụng", correct: "A", exp: "Bài mẫu đưa ra ví dụ: 'not allow their children to use mobile devices after 9p.m.'" },
+                    { q: "Mục đích của việc kiểm soát thiết bị sau 9 giờ tối đối với học sinh là gì?", a: "Rest their minds from digital stimulation", b: "Earn revenue from carbon credits", c: "Prepare for high school graduation exams", d: "Avoid discrimination from employers", correct: "A", exp: "Hành động này 'assured that children have chances to rest their minds from digital stimulation'." },
+                    { q: "Giải pháp dành cho giáo viên được gợi ý trong đoạn Body 2 là gì?", a: "Apply interactive teaching methods", b: "Focus strictly on traditional academic math", c: "Punish students harshly in classroom", d: "Reduce history hours completely", correct: "A", exp: "Văn bản nêu: 'another measure is that teachers should apply interactive teaching methods'." },
+                    { q: "Hoạt động nào KHÔNG nằm trong phương pháp giảng dạy tương tác được đề cập?", a: "Đọc chép truyền thống từ sách giáo khoa", b: "Thảo luận nhóm (Group discussions)", c: "Trò chơi giáo dục (Interactive games)", d: "Ví dụ thực tế (Real-life examples)", correct: "A", exp: "Đọc chép thuộc về phương pháp cũ bị phê phán ở Body 1, không phải giải pháp tương tác ở Body 2." },
+                    { q: "Phương pháp tương tác giúp biến đổi học sinh từ trạng thái nào sang trạng thái nào?", a: "From passive listeners to active participants", b: "From ex-criminals to legal workers", c: "From high school dropouts to experts", d: "From heavy consumers to smart shoppers", correct: "A", exp: "Cấu trúc bài mẫu dùng: 'transform students from passive listeners to active participants'." },
+                    { q: "Từ 'mitigate' xuất hiện ở đoạn mở bài mang ý nghĩa gì?", a: "Giảm nhẹ bớt mức độ nghiêm trọng", b: "Gây thiệt hại cho ai đó", c: "Giữ lại thông tin", d: "Phục hồi nhân phẩm", correct: "A", exp: "Mitigate nghĩa là giảm thiểu tác động tiêu cực của một vấn nạn." },
+                    { q: "Trong câu kết luận, từ 'dull' đồng nghĩa với từ nào đã xuất hiện ở Body 1?", a: "Boring", b: "Appealing", c: "Interactive", d: "Demanding", correct: "A", exp: "'Dull' và 'boring' đều mang ý nghĩa là buồn tẻ, nhàm chán, đơn điệu." },
+                    { q: "Từ nào trong bảng từ vựng mang nghĩa là 'khoảng thời gian tập trung chú ý'?", a: "Attention span", b: "Distraction", c: "Stimulation", d: "Exposure", correct: "A", exp: "Attention span là thuật ngữ học thuật chỉ thời gian một người duy trì sự chú ý liên tục." },
+                    { q: "Cấu trúc 'resulted in their attention spans...' yêu cầu dạng thức động từ theo sau như thế nào?", a: "V-ing (reducing)", b: "To-V", c: "Verb bare", d: "Quá khứ phân từ", correct: "A", exp: "Cấu trúc 'result in + N/V-ing' mô tả hệ quả kéo theo." },
+                    { q: "Điền từ vào chỗ trống: 'The problem of student’s distraction during lessons ______ excessive technology use...'", a: "stems from", b: "contributes to", c: "mitigates with", d: "struggles with", correct: "A", exp: "Stems from mang ý nghĩa 'bắt nguồn từ', dùng để kết luận nguồn gốc căn bệnh." },
+                    { q: "Tính từ 'demanding' được dùng trong Body 1 để miêu tả cái gì?", a: "Các nhiệm vụ kéo dài như bài giảng giáo khoa", b: "Thiết bị điện thoại thông minh mới", c: "Chính sách giảm kỳ thị của chính phủ", d: "Thị trường tín chỉ carbon", correct: "A", exp: "Được dùng mô tả việc ngồi nghe giảng dài: 'sitting through longer tasks such as lectures... become more demanding'." },
+                    { q: "Ý chính của câu Thesis Statement trong bài viết Task 2 này là gì?", a: "Nêu tổng quan bài viết sẽ phân tích lý do và đề xuất giải pháp", b: "Khẳng định học sinh ngày nay thông minh hơn", c: "Phê phán toàn bộ hệ thống trường học công lập", d: "Kêu gọi cấm mạng xã hội vĩnh viễn", correct: "A", exp: "Thesis statement trả lời câu hỏi đề bài bằng cách tóm tắt nguyên nhân và khẳng định có giải pháp xử lý." }
+                ]
+            },
+            {
+                id: 2,
+                theme: "theme-education",
+                emoji1: "💰",
+                emoji2: "🏫",
+                subHeading: "Education - Personal Finance",
+                rawPrompt: "In many countries, students leave high school without understanding how to manage their money. Why is this? What solutions can be suggested to help students manage their finances effectively?",
+                outlineData: {
+                    intro: [
+                        { q: "Câu 1 – Paraphrase đề bài", desc: "Across the world, many young people graduate from secondary education with limited knowledge of handling <span class='eng-phrase'>THEIR personal finances</span>." },
+                        { q: "Câu 2 – Trả lời câu hỏi đề bài", desc: "This happens due to some reasons = <span class='eng-phrase'>LACKING OFFICIAL TEACHING PROGRAMMES AND NOT INTERFERING WITH PARENTS’ FINANCIAL DECISIONS</span>, and effective measures <span class='eng-phrase'>FROM SCHOOLS AND PARENTS</span> should be taken to mitigate it." }
+                    ],
+                    body1: {
+                        topic: "Several reasons can explain why many pupils graduated from high schoolS without <span class='eng-phrase'>HAVING</span> financial management skills.",
+                        ideas: [
+                            { core: "Các chương trình tài chính cá nhân thường bị bỏ lỡ khỏi chương trình giảng dạy chính thức ở nhiều quốc gia (<span class='eng-phrase'>personal finance programmes are USUALLY missED from the OFFICIAL curriculum</span>).", impact: "Hầu hết các trường cấp 3 tập trung vào các môn học thuật truyền thống (Toán, Khoa học, Văn học) và có xu hướng bỏ qua các kỹ năng mềm thiết yếu (<span class='eng-phrase'>neglect ESSENTIAL SOFT SKILLS</span>) gồm quản lý tiền tệ thực tế. Học sinh dù tốt nghiệp bằng giỏi vẫn bỡ ngỡ với bối cảnh tài chính thực tế, dễ sai lầm khi lập ngân sách riêng đầu đời." },
+                            { core: "Người học thiếu cơ hội thực hành lập ngân sách thực tế (<span class='eng-phrase'>lack opportunities to gain hands-on budgeting practice</span>) trong đời sống hàng ngày.", impact: "Thanh thiếu niên thường nhận tiền tiêu vặt mà không phải chịu trách nhiệm quản lý hiệu quả (<span class='eng-phrase'>without HAVING responsibility FOR MANAGING IT EFFICIENTLY</span>), trong khi các chi phí lớn như tiền điện, học phí đều do cha mẹ chi trả. Khi trưởng thành họ sẽ chật vật không biết ưu tiên chi tiêu." }
+                        ]
+                    },
+                    body2: {
+                        topic: "However, there are various workable solutions that each individual could take to tackle this problem.",
+                        ideas: [
+                            { core: "Giải pháp ban đầu là nhà trường có thể thiết lập các dự án dài hạn cho học sinh học cách quản lý ngân sách thật (<span class='eng-phrase'>schools can set up long-term projects in which students CAN LEARN HOW TO manage a real budget</span>).", impact: "Ví dụ người học lập kế hoạch và theo dõi chi tiêu từ các sự kiện do học sinh dẫn dắt như đêm hội dạ hội, hội chợ trường, nơi họ sử dụng tiền giả định để giao dịch hàng hóa. Qua đó tích lũy kinh nghiệm lập ngân sách thực tế." },
+                            { core: "Biện pháp khác là nhà trường tổ chức các buổi hội thảo dành cho phụ huynh giảng dạy cách nói chuyện cởi mở với con cái về vấn đề tiền bạc (<span class='eng-phrase'>hold parent workshops which teach how to talk OPENLY to their children about money ISSUES</span>).", impact: "Nội dung chia theo lứa tuổi phù hợp dưới sự hướng dẫn của chuyên gia. Nhờ vậy cha mẹ đóng vai trò quan trọng định hình mô hình tài chính (<span class='eng-phrase'>forming financial models</span>), giúp gia đình hình thành văn hóa tiền bạc cởi mở, hướng tới đầu tư, tiết kiệm đúng đắn." }
+                        ]
+                    },
+                    conclusion: "In conclusion, this problem stems from several reasons, but <span class='eng-phrase'>SCHOOLS AND PARENTS</span> could implement a range of measures to address this problem."
+                },
+                essayData: [
+                    { type: "Introduction", en: "Across the world, many young people graduate from secondary education with limited knowledge of handling their personal finances. This happens due to some reasons, namely lacking official teaching programmes and not interfering with parents’ financial decisions, and effective measures from schools and parents should be taken to mitigate it.", vi: "Trên khắp thế giới, nhiều người trẻ tốt nghiệp giáo dục trung học với kiến thức hạn chế về việc xử lý tài chính cá nhân của họ. Điều này xảy ra do một số lý do, cụ thể là thiếu các chương trình giảng dạy chính thức và không can thiệp vào các quyết định tài chính của cha mẹ, và các biện pháp hiệu quả từ nhà trường và phụ huynh nên được thực hiện để giảm thiểu tình trạng này." },
+                    { type: "Body 1", en: "Several reasons can explain why many pupils graduated from high schools without having financial management skills. Firstly, personal finance programmes are usually missed from the official curriculum in many nations. For example, most high schools focus on traditional academic subjects, such as Maths, Sciences, Literatures, and tend to neglect essential soft skills, including practical money management skills. As a result, even students graduated with excellent degrees are unprepared for real-world financial situations and easily make mistakes when they initially make their own budget. Secondly, learners may lack opportunities to gain hands-on budgeting practice in their daily life. For instance, teenagers often receive pocket money without having responsibility for managing it efficiently, while other major expenses, such as paying electric bills and school fees, are usually paid by their parents. Consequently, when they become adults, they may struggle and do not know how to prioritise spending when making crucial financial decisions.", vi: "Một số nguyên nhân có thể giải thích tại sao nhiều học sinh tốt nghiệp trung học phổ thông mà không có kỹ năng quản lý tài chính. Thứ nhất, các chương trình tài chính cá nhân thường bị bỏ sót trong chương trình giảng dạy chính thức ở nhiều quốc gia. Ví dụ, hầu hết các trường trung học tập trung vào các môn học thuật truyền thống, chẳng hạn như Toán, Khoa học, Ngữ văn, và có xu hướng bỏ qua các kỹ năng mềm thiết yếu, bao gồm cả kỹ năng quản lý tiền thực tế. Kết quả là, ngay cả những sinh viên tốt nghiệp với tấm bằng xuất sắc cũng không được chuẩn bị cho các tình huống tài chính trong thế giới thực và dễ dàng mắc sai lầm khi ban đầu họ tự lập ngân sách cho riêng mình. Thứ hai, người học có thể thiếu cơ hội thực hành lập ngân sách thực tế trong cuộc sống hàng ngày của họ. Chẳng hạn, thanh thiếu niên thường nhận được tiền tiêu vặt mà không có trách nhiệm quản lý nó một cách hiệu quả, trong khi các chi phí lớn khác, chẳng hạn như trả hóa đơn tiền điện và học phí, thường được cha mẹ chi trả. Do đó, khi trở thành người lớn, họ có thể gặp khó khăn và không biết cách ưu tiên chi tiêu khi đưa ra các quyết định tài chính quan trọng." },
+                    { type: "Body 2", en: "However, there are various workable solutions that each individual could take to tackle this problem. The initial solution is that schools can set up long-term projects in which students can learn how to manage a real budget. A telling example is that learners can plan and track expenses from student-led events like gala, prom, school fairs, where these students can use fake money to trade for items. As a result, they can have real-world budgeting experience and know how to prioritise spending after graduating. Another measure is that schools can hold parent workshops which teach how to talk openly to their children about money issues. For example, contents are divided into age-appropriate stages, from kindergarten to high school level with expert-led guidance. As a result, parents can play important roles in forming financial models, and families gradually form an open money culture, allowing children to engage in discussion on money issues, making suitable budgeting, saving, and investing.", vi: "Tuy nhiên, có nhiều giải pháp khả thi khác nhau mà mỗi cá nhân có thể thực hiện để giải quyết vấn đề này. Giải pháp ban đầu là các trường học có thể thiết lập các dự án dài hạn, trong đó học sinh có thể học cách quản lý một ngân sách thực tế. Một ví dụ điển hình là người học có thể lập kế hoạch và theo dõi các chi phí từ các sự kiện do học sinh dẫn dắt như dạ tiệc, khiêu vũ, hội chợ trường, nơi những học sinh này có thể sử dụng tiền giả để đổi lấy các vật dụng. Kết quả là, họ có thể có kinh nghiệm lập ngân sách trong thế giới thực và biết cách ưu tiên chi tiêu sau khi tốt nghiệp. Một biện pháp khác là các trường học có thể tổ chức các buổi hội thảo dành cho phụ huynh để dạy cách nói chuyện cởi mở với con cái của họ về các vấn đề tiền bạc. Ví dụ, nội dung được chia thành các giai đoạn phù hợp với lứa tuổi, từ mẫu giáo đến cấp trung học phổ thông với sự hướng dẫn của chuyên gia. Kết quả là, cha mẹ có thể đóng vai trò quan trọng trong việc hình thành các mô hình tài chính, và các gia đình dần dần hình thành một văn hóa tiền bạc cởi mở, cho phép trẻ em tham gia thảo luận về các vấn đề tiền bạc, lập ngân sách, tiết kiệm và đầu tư phù hợp." },
+                    { type: "Conclusion", en: "In conclusion, this problem stems from several reasons, but schools and parents could implement a range of measures to address this problem.", vi: "Tóm lại, vấn đề này bắt nguồn từ một số lý do, nhưng các trường học và phụ huynh có thể thực hiện một loạt các biện pháp để giải quyết vấn đề này." }
+                ],
+                vocabTable: [
+                    { word: "Personal finance", type: "n", desc: "Tài chính cá nhân" },
+                    { word: "Official curriculum", type: "n", desc: "Chương trình giảng dạy chính thức" },
+                    { word: "Neglect", type: "v", desc: "Thờ ơ, bỏ bê, bỏ qua không chăm sóc" },
+                    { word: "Soft skills", type: "n", desc: "Kỹ năng mềm" },
+                    { word: "Unprepared", type: "adj", desc: "Chưa được chuẩn bị trước" },
+                    { word: "Initially", type: "adv", desc: "Ban đầu, vào lúc đầu" },
+                    { word: "Hands-on", type: "adj", desc: "Thực tế, thực hành trực tiếp cảm nhận" },
+                    { word: "Budgeting", type: "n", desc: "Việc lập ngân sách, tính toán chi tiêu" },
+                    { word: "Pocket money", type: "n", desc: "Tiền tiêu vặt" },
+                    { word: "Efficiently", type: "adv", desc: "Một cách hiệu quả, không lãng phí" },
+                    { word: "Expense", type: "n", desc: "Chi phí, số tiền phải tiêu tốn" },
+                    { word: "Prioritise", type: "v", desc: "Ưu tiên điều gì lên hàng đầu" },
+                    { word: "Crucial", type: "adj", desc: "Cốt lõi, vô cùng quan trọng, mang tính quyết định" },
+                    { word: "Telling example", type: "n", desc: "Ví dụ điển hình, minh chứng hùng hồn" },
+                    { word: "Student-led", type: "adj", desc: "Do học sinh tự chủ trì, dẫn dắt" },
+                    { word: "Workshop", type: "n", desc: "Buổi hội thảo thực hành chia sẻ kinh nghiệm" },
+                    { word: "Age-appropriate", type: "adj", desc: "Phù hợp với từng lứa tuổi cụ thể" },
+                    { word: "Financial model", type: "n", desc: "Mô hình quản lý tài chính" },
+                    { word: "Culture", type: "n", desc: "Văn hóa, nếp sống tinh thần" },
+                    { word: "Investing", type: "n", desc: "Hoạt động đầu tư sinh lời" }
+                ],
+                grammarData: [
+                    { title: "Without + V-ing", desc: "Diễn tả hành trạng thiếu vắng một hành động hay điều kiện đi kèm.", ex: "They graduate without having financial management skills." },
+                    { title: "Focus on something", desc: "Tập trung cao độ vào một mục tiêu chuyên biệt.", ex: "Most high schools focus on traditional academic subjects." },
+                    { title: "Tend to + Verb bare", desc: "Có xu hướng thường làm một việc gì đó như thói quen.", ex: "Schools tend to neglect essential soft skills." },
+                    { title: "Even + Subject + Verb", desc: "Dùng để nhấn mạnh trạng huống mang tính nhượng bộ bất ngờ.", ex: "Even students graduated with excellent degrees are unprepared." },
+                    { title: "Lack opportunities to do something", desc: "Thiếu thốn cơ hội để triển khai một hoạt động thực tế.", ex: "Learners may lack opportunities to gain hands-on practice." },
+                    { title: "Responsibility for + V-ing", desc: "Có trách nhiệm pháp lý hoặc nghĩa vụ thực hiện việc gì.", ex: "Teenagers receive money without having responsibility for managing it." },
+                    { title: "When becoming adults", desc: "Trạng ngữ rút gọn thời gian khi hai mệnh đề cùng chủ ngữ.", ex: "When becoming adults, they may struggle to manage assets." },
+                    { title: "Set up long-term projects in which...", desc: "Mệnh đề quan hệ với đại từ giới từ chỉ địa điểm không gian trừu tượng.", ex: "Schools can set up projects in which students learn dynamic budgeting." },
+                    { title: "Know how to do something", desc: "Nắm vững phương pháp thực hiện chuẩn chỉnh một kỹ năng.", ex: "They know how to prioritise spending after graduating." },
+                    { title: "Play important roles in", desc: "Đóng vai trò then chốt cốt lõi trong việc thúc đẩy tiến trình.", ex: "Parents can play important roles in forming financial models." }
+                ],
+                quizData: [
+                    { q: "Cụm từ nào thay thế cho 'high school students' trong đoạn Introduction?", a: "young people", b: "senior citizens", c: "recruiters", d: "prisoners", correct: "A", exp: "Đoạn 1 viết: 'Across the world, many young people graduate from secondary education...'" },
+                    { q: "Môn học nào được xếp vào nhóm học thuật truyền thống (traditional academic subjects)?", a: "Maths, Sciences, Literatures", b: "Budgeting and saving", c: "Cooking and wiring", d: "Digital marketing", correct: "A", exp: "Nguyên văn đoạn 2: 'traditional academic subjects, such as Maths, Sciences, Literatures'." },
+                    { q: "Học sinh tốt nghiệp xuất sắc vẫn gặp khó khăn gì khi vừa ra trường?", a: "Unprepared for real-world financial situations", b: "Cannot find any local factory jobs", c: "Addicted to online video streaming", d: "Lose focus during short events", correct: "A", exp: "Đoạn văn nói học sinh bằng giỏi vẫn 'unprepared for real-world financial situations'." },
+                    { q: "Tại sao thanh thiếu niên không có ý thức quản lý tiền tiêu vặt hiệu quả?", a: "Vì các chi phí lớn đã được cha mẹ trả hết", b: "Vì họ bị phân biệt đối xử", c: "Vì giá cả ở căng tin quá đắt đỏ", d: "Vì trường học phát tiền giả", correct: "A", exp: "Do các chi phí lớn 'such as paying electric bills and school fees, are usually paid by their parents'." },
+                    { q: "Cụm từ 'hands-on' trong bài học mang nghĩa tương đương với từ nào?", a: "Practical (Thực tế)", b: "Theoretical", c: "Academic", d: "Boring", correct: "A", exp: "'Hands-on' chỉ việc thực hành trực tiếp, sát thực tế đời sống." },
+                    { q: "Dự án mô phỏng tài chính nào được đề xuất cho nhà trường thiết lập?", a: "Student-led events like gala, prom, school fairs", b: "Vocational training in local prison yards", c: "Phone-free community sports day", d: "Green technology investments", correct: "A", exp: "Đoạn Body 2 gợi ý cho học sinh theo dõi chi phí từ 'student-led events like gala, prom, school fairs'." },
+                    { q: "Học sinh sử dụng loại tiền gì để trao đổi hàng hóa tại hội chợ giả định?", a: "Fake money (Tiền giả định)", b: "Carbon credits", c: "Crypto currency", d: "Real allowances", correct: "A", exp: "Văn bản ghi: 'where these students can use fake money to trade for items'." },
+                    { q: "Hội thảo dành cho phụ huynh (parent workshops) được đề xuất nhằm mục đích gì?", a: "Dạy cách nói chuyện cởi mở về tiền bạc với con", b: "Dạy cách sửa chữa điện và nấu ăn tại nhà", c: "Quyên góp quỹ xóa mù chữ cho nông dân", d: "Giới hạn thời gian dùng Tiktok của con", correct: "A", exp: "Mục đích là 'teach how to talk openly to their children about money issues'." },
+                    { q: "Các nội dung đào tạo tài chính tại nhà nên được phân chia như thế nào?", a: "Divided into age-appropriate stages", b: "Dành riêng cho trẻ mẫu giáo", c: "Chỉ tập trung vào học sinh lớp 12", d: "Giống hệt nhau cho mọi lứa tuổi", correct: "A", exp: "Nguyên văn: 'contents are divided into age-appropriate stages'." },
+                    { q: "Kết quả lâu dài của việc đối thoại cởi mở về tài chính trong gia đình là gì?", a: "Form an open money culture", b: "Increase crop failure rates", c: "Cause major production delays", d: "Widen the interest gaps", correct: "A", exp: "Giúp các gia đình 'gradually form an open money culture'." },
+                    { q: "Từ 'crucial' trong cụm 'making crucial financial decisions' có nghĩa là gì?", a: "Vô cùng quan trọng, quyết định", b: "Kém hấp dẫn", c: "Thụ động", d: "Có hại", correct: "A", exp: "'Crucial' đồng nghĩa với 'extremely important' hoặc 'vital'." },
+                    { q: "Từ đồng nghĩa của 'a telling example' dùng trong đoạn Body 2 là gì?", a: "A prime example / A clear illustration", b: "A bad situation", c: "A minor detail", d: "An unproved theory", correct: "A", exp: "'A telling example' nghĩa là một ví dụ điển hình mang tính thuyết phục cao." },
+                    { q: "Chủ thể nào đóng vai trò cốt lõi trong giải pháp của đề tài này?", a: "Schools and parents (Nhà trường và phụ huynh)", b: "Governments and prisons", c: "Supermarkets and consumers", d: "Teenagers and TikTokers", correct: "A", exp: "Đề bài nhấn mạnh sự kết hợp giải pháp đến từ 'schools and parents'." },
+                    { word: "Efficiently", type: "adv", desc: "Học sinh cần quản lý tiền tiêu vặt thế nào?", a: "Efficiently (Hiệu quả)", b: "Passively", c: "Excessively", d: "Dramatically", correct: "A", exp: "Quản lý tiền cần tính toán khoa học, tránh lãng phí, tức là 'efficiently'." },
+                    { q: "Tính từ 'unprepared' trong Body 1 mang tiền tố 'un-', gốc từ 'prepare' có nghĩa là gì?", a: "Không được chuẩn bị trước", b: "Được chuẩn bị quá kỹ", c: "Sẵn sàng đối mặt", d: "Bị ép buộc làm", correct: "A", exp: "Tiền tố un- mang nghĩa phủ định, unprepared nghĩa là chưa sẵn sàng, chưa chuẩn bị." },
+                    { q: "Hoạt động 'investing' được nhắc tới ở cuối Body 2 nghĩa là gì?", a: "Đầu tư sinh lời", b: "Tiết kiệm tiền xu", c: "Quyên góp từ thiện", d: "Mua sắm giảm giá", correct: "A", exp: "Investing là đầu tư tiền bạc vào các kênh tài sản để gia tăng giá trị." },
+                    { q: "Cụm từ 'secondary education' dùng ở mở bài thay thế cho từ nào trong đề?", a: "high school", b: "kindergarten", c: "university", d: "prison system", correct: "A", exp: "'Secondary education' (giáo dục trung học) được dùng để paraphrase cho 'high school'." },
+                    { q: "Điền giới từ đúng vào cấu trúc: 'neglect soft skills, including practical money management skills. As a result, students graduated ______ excellent degrees...'", a: "with", b: "by", c: "at", d: "for", correct: "A", exp: "Cụm từ cố định: 'graduate with a degree' (tốt nghiệp với tấm bằng)." },
+                    { q: "Khi con cái được tự quản lý tiền, chúng học được cách làm gì?", a: "Prioritise spending (Ưu tiên chi tiêu)", b: "Overbuy groceries", c: "Reoffend after sentences", d: "Reduce attention spans", correct: "A", exp: "Học sinh sẽ 'know how to prioritise spending after graduating'." },
+                    { q: "Cụm từ 'open money culture' hướng đến trạng thái tâm lý nào trong gia đình?", a: "Sự cởi mở, không ngại thảo luận chia sẻ về tiền bạc", b: "Sự giấu giếm quỹ cá nhân", c: "Sự tranh chấp tài sản căng thẳng", d: "Sự tiết kiệm kham khổ cực đoan", correct: "A", exp: "Văn hóa tiền bạc mở nghĩa là cha mẹ và con cái thảo luận thẳng thắn, khoa học về tài chính." }
+                ]
+            },
+            {
+                id: 3,
+                theme: "theme-food",
+                emoji1: "🍎",
+                emoji2: "🗑️",
+                subHeading: "Food - Global Food Waste",
+                rawPrompt: "Every day, millions of tons of food are wasted all over the world. Why do you think this is happening? And how can we solve this problem?",
+                outlineData: {
+                    intro: [
+                        { q: "Câu 1 : Paraphrase đề bài", desc: "On a daily basis, vast quantities of food are thrown away around the world, causing significant problems for society and the environment." },
+                        { q: "Câu 2 – Trả lời câu hỏi đề bài", desc: "This issue is caused by some reasons, but it can be <span class='eng-phrase'>MITIGATED</span> by <span class='eng-phrase'>THE</span> governments and organizations." }
+                    ],
+                    body1: {
+                        topic: "Several reasons account for the staggering volume of global food waste generated daily.",
+                        ideas: [
+                            { core: "Người tiêu dùng mua sắm quá mức nhu cầu tích trữ thực phẩm (<span class='eng-phrase'>overbuy groceries</span>).", impact: "Họ bị thu hút bởi các chương trình khuyến mãi, giảm giá mua số lượng lớn (<span class='eng-phrase'>attracted to promotions and bulk discounts</span>). Thực phẩm tươi sống được mua nhiều nhưng không thể tiêu thụ trước hạn dùng, dẫn đến việc bị vứt bỏ ra các bãi rác (<span class='eng-phrase'>throw away in landfills</span>), vừa lãng phí thức ăn vừa gây ô nhiễm môi trường (<span class='eng-phrase'>food waste + environmental pollution</span>)." },
+                            { core: "Nhãn ghi ngày tháng gây nhầm lẫn mơ hồ cho người dùng (<span class='eng-phrase'>confusing date labels</span>).", impact: "Ví dụ một số nhãn ghi <span class='eng-phrase'>Best before</span> (Sử dụng tốt nhất trước) và <span class='eng-phrase'>Use by</span> (Hạn dùng cuối). Điều này tạo ra sự hiểu lầm lớn từ phía siêu thị và người mua (<span class='eng-phrase'>misunderstanding by supermarkets and users</span>), dẫn tới việc vứt bỏ oan uổng những thực phẩm hoàn toàn vẫn còn ăn được (<span class='eng-phrase'>edible food</span>)." }
+                        ]
+                    },
+                    body2: {
+                        topic: "However, tailored strategies driven by authorities and communities can tackle this crisis.",
+                        ideas: [
+                            { core: "Triển khai các chiến dịch nâng cao nhận thức cộng đồng về việc lãng phí thực phẩm (<span class='eng-phrase'>awareness campaigns about wasting food</span>).", impact: "Giáo dục các kỹ năng đi chợ thiết yếu như lập danh sách mua sắm (<span class='eng-phrase'>teaching ESSENTIAL skills SUCH AS MAKING SHOPPING LIST</span>) giúp người dân chỉ mua những gì thực sự cần thiết, làm giảm đáng kể lượng rác thải sinh hoạt của hộ gia đình (<span class='eng-phrase'>household waste decline</span>)." },
+                            { core: "Chuẩn hóa và đơn giản hóa các quy định ghi nhãn ngày tháng (<span class='eng-phrase'>standardise and simplify date labels</span>).", impact: "Phối hợp triển khai các chiến dịch truyền thông công chúng trên toàn quốc giúp người dân nhận diện rõ ràng mặt hàng nào vẫn giữ được độ an toàn (<span class='eng-phrase'>kept safe FOOD for the STANDARD PERIOD</span>), chặn đứng việc tiêu hủy nhầm thực phẩm." }
+                        ]
+                    },
+                    conclusion: "In conclusion, although there are many reasons for the waste of food, the measures from the government and organizations can solve this problem."
+                },
+                essayData: [
+                    { type: "Introduction", en: "On a daily basis, vast quantities of food are thrown away around the world, causing significant problems for society and the environment. This issue is caused by some reasons, but it can be mitigated by the governments and organizations.", vi: "Hàng ngày, một lượng lớn thực phẩm bị ném bỏ trên khắp thế giới, gây ra những vấn đề nghiêm trọng cho xã hội và môi trường. Vấn đề này xuất phát từ một số lý do, nhưng nó có thể được giảm thiểu bởi các chính phủ và tổ chức." },
+                    { type: "Body 1", en: "Several reasons account for the staggering volume of global food waste generated daily. Firstly, consumers frequently overbuy groceries because they are attracted to promotions and bulk discounts. Consequently, fresh produce is often bought but cannot be consumed before the expiration date, leading people to throw them away in landfills, creating both massive food waste and environmental pollution. Secondly, confusing date labels create another major issue. For example, some labels represent 'Best before' while others write 'Use by'. This leads to widespread misunderstanding by supermarkets and users alike. As a result, they mistakenly throw away perfectly edible food long before it actually spoils.", vi: "Một số lý do giải thích cho khối lượng đáng kinh ngạc của thực phẩm lãng phí toàn cầu được tạo ra hàng ngày. Thứ nhất, người tiêu dùng thường xuyên mua quá nhiều hàng tạp hóa vì họ bị thu hút bởi các chương trình khuyến mãi và giảm giá số lượng lớn. Do đó, nông sản tươi thường được mua nhưng không thể tiêu thụ trước ngày hết hạn, khiến người ta vứt chúng vào các bãi chôn lấp, tạo ra cả sự lãng phí thực phẩm khổng lồ lẫn ô nhiễm môi trường. Thứ hai, nhãn ngày tháng gây nhầm lẫn tạo ra một vấn đề lớn khác. Ví dụ, một số nhãn ghi 'Sử dụng tốt nhất trước' trong khi những nhãn khác ghi 'Sử dụng bởi'. Điều này dẫn đến sự hiểu lầm trên diện rộng của các siêu thị cũng như người dùng. Kết quả là, họ vứt bỏ nhầm những thực phẩm hoàn toàn có thể ăn được từ lâu trước khi nó thực sự bị hỏng." },
+                    { type: "Body 2", en: "However, tailored strategies driven by authorities and communities can tackle this crisis. The primary solution is to launch awareness campaigns about wasting food. By teaching essential skills such as making a shopping list before visiting stores, governments can guide individuals to buy only what they really need. This single habit would lead to a significant household waste decline. In addition, governments need to standardise and simplify date labels on food packaging. Accompanied by nationwide public campaigns, clear labelling ensures that consumers understand that items are kept safe as edible food for the standard period. This legal standardization prevents retailers from discarding good items prematurely.", vi: "Tuy nhiên, các chiến lược phù hợp do chính quyền và cộng đồng thúc đẩy có thể giải quyết cuộc khủng hoảng này. Giải pháp hàng đầu là phát động các chiến dịch nâng cao nhận thức về việc lãng phí thực phẩm. Bằng cách dạy các kỹ năng thiết yếu như lập danh sách mua sắm trước khi đến cửa hàng, các chính phủ có thể hướng dẫn các cá nhân chỉ mua những gì họ thực sự cần. Thói quen đơn lẻ này sẽ dẫn đến sự sụt giảm đáng kể rác thải sinh hoạt. Ngoài ra, các chính phủ cần chuẩn hóa và đơn giản hóa nhãn ngày tháng trên bao bì thực phẩm. Đi kèm với các chiến dịch truyền thông công chúng trên toàn quốc, việc dán nhãn rõ ràng đảm bảo rằng người tiêu dùng hiểu rằng các mặt hàng được giữ an toàn như thực phẩm có thể ăn được trong thời gian tiêu chuẩn. Sự chuẩn hóa hợp pháp này ngăn cản các nhà bán lẻ loại bỏ các mặt hàng tốt một cách sớm hơn cần thiết." },
+                    { type: "Conclusion", en: "In conclusion, although there are many reasons for the waste of food, the measures from the government and organizations can solve this problem.", vi: "Tóm lại, mặc dù có nhiều lý do dẫn đến việc lãng phí thực phẩm, các biện pháp từ chính phủ và các tổ chức có thể giải quyết vấn đề này." }
+                ],
+                vocabTable: [
+                    { word: "Vast quantities", type: "n", desc: "Số lượng khổng lồ, bao la" },
+                    { word: "Thrown away", type: "v", desc: "Bị ném đi, vứt bỏ vào thùng rác" },
+                    { word: "Staggering", type: "adj", desc: "Gây choáng váng, làm kinh ngạc, sững sờ" },
+                    { word: "Overbuy", type: "v", desc: "Mua sắm quá mức cần thiết" },
+                    { word: "Groceries", type: "n", desc: "Hàng tạp hóa, thực phẩm thiết yếu hàng ngày" },
+                    { word: "Bulk discount", type: "n", desc: "Giảm giá khi mua số lượng lớn" },
+                    { word: "Fresh produce", type: "n", desc: "Nông sản tươi (rau, củ, quả tươi sống)" },
+                    { word: "Landfill", type: "n", desc: "Bãi chôn lấp rác thải" },
+                    { word: "Confusing", type: "adj", desc: "Gây bối rối, mơ hồ, khó phân biệt" },
+                    { word: "Date labels", type: "n", desc: "Nhãn ghi ngày tháng, hạn sử dụng" },
+                    { word: "Best before", type: "phrase", desc: "Chất lượng tốt nhất trước ngày (vẫn ăn được sau đó)" },
+                    { word: "Use by", type: "phrase", desc: "Sử dụng trước ngày (hạn chót an toàn thực phẩm)" },
+                    { word: "Misunderstanding", type: "n", desc: "Sự hiểu lầm, ngộ nhận thông tin" },
+                    { word: "Edible", type: "adj", desc: "Có thể ăn được, không độc hại" },
+                    { word: "Spoil", type: "v", desc: "Bị ôi thiu, hư hỏng, thối rữa" },
+                    { word: "Tailored", type: "adj", desc: "Được thiết kế riêng biệt, may đo vừa vặn cho mục tiêu" },
+                    { word: "Decline", type: "n/v", desc: "Sự suy giảm, sụt giảm số lượng" },
+                    { word: "Standardise", type: "v", desc: "Chuẩn hóa theo một quy chuẩn thống nhất" },
+                    { word: "Prematurely", type: "adv", desc: "Quá sớm, trước thời hạn đích thực" },
+                    { word: "Discard", type: "v", desc: "Loại bỏ, vứt bỏ thứ không dùng nữa" }
+                ],
+                grammarData: [
+                    { title: "On a daily basis", desc: "Cụm trạng từ thời gian nâng cao thay thế hoàn hảo cho 'Every day'.", ex: "Vast quantities of food are thrown away on a daily basis." },
+                    { title: "Passive Voice with Present Simple", desc: "Thể bị động hiện tại đơn nhấn mạnh tình trạng khách quan của đối tượng thực phẩm.", ex: "Millions of tons of food are wasted all over the world." },
+                    { title: "Attracted to something", desc: "Bị lôi cuốn, thu hút mạnh mẽ bởi yếu tố ngoại cảnh nào đó.", ex: "Consumers are overbuying because they are attracted to promotions." },
+                    { title: "Leading someone to do something", desc: "Hệ quả dẫn dắt đẩy đối tượng thực hiện một hành vi tiếp nối.", ex: "Fresh produce expires, leading people to throw them away." },
+                    { title: "Perfectly + Adjective", desc: "Trạng từ nhấn mạnh trạng thái hoàn hảo tuyệt đối của tính từ đi kèm.", ex: "They mistakenly throw away perfectly edible food." },
+                    { title: "Long before", desc: "Rất lâu trước khi một sự kiện khác diễn ra.", ex: "They discard items long before they actually spoil." },
+                    { title: "By + V-ing", desc: "Phương pháp, phương tiện để đạt được mục đích giải pháp.", ex: "By teaching essential skills, governments can guide individuals." },
+                    { title: "Buy only what they really need", desc: "Mệnh đề danh từ làm tân ngữ chỉ mục đích giới hạn mua sắm.", ex: "The shopping list helps individuals buy only what they really need." },
+                    { title: "Accompanied by something", desc: "Được đồng hành, đi kèm hộ tống bởi một yếu tố hỗ trợ vững chắc.", ex: "Accompanied by nationwide public campaigns, clear labelling works." },
+                    { title: "Prevent someone from V-ing", desc: "Ngăn chặn triệt để ai đó thực hiện một hành động tiêu cực.", ex: "This legal standardization prevents retailers from discarding good items." }
+                ],
+                quizData: [
+                    { q: "Cụm từ 'on a daily basis' trong câu mở đầu đồng nghĩa với từ nào?", a: "every day", b: "rarely", c: "monthly", d: "annually", correct: "A", exp: "'On a daily basis' là cách nói học thuật nâng cao của 'every day'." },
+                    { q: "Lý do khiến người tiêu dùng mua sắm quá mức (overbuy) là gì?", a: "Attracted to promotions and bulk discounts", b: "Fear of legal harsh punishment", c: "Lack of traditional school subjects", d: "Addiction to smartphone screen games", correct: "A", exp: "Bài đọc nêu rõ: 'because they are attracted to promotions and bulk discounts'." },
+                    { q: "Thực phẩm tươi sống không dùng hết sẽ bị vứt đi đâu?", a: "Landfills (Bãi chôn lấp rác)", b: "Nursing homes", c: "Local prisons", d: "Supermarket warehouses", correct: "A", exp: "Nguyên văn: 'leading people to throw them away in landfills'." },
+                    { q: "Hệ quả kép của việc vứt bỏ thực phẩm ra bãi rác là gì?", a: "Food waste + environmental pollution", b: "Financial knowledge + soft skills", c: "Reoffending rates decline dramatically", d: "Generation gaps widen automatically", correct: "A", exp: "Hành động này 'creating both massive food waste and environmental pollution'." },
+                    { q: "Hai loại nhãn ngày tháng nào gây bối rối cho người tiêu dùng?", a: "'Best before' và 'Use by'", b: "'Expired' và 'Fresh packaging'", c: "'Fake money' và 'Real value'", d: "'Legal standard' và 'Retail option'", correct: "A", exp: "Văn bản liệt kê hai loại nhãn điển hình: 'Best before' while others write 'Use by'." },
+                    { q: "Từ 'edible' trong bài học có nghĩa là gì?", a: "Có thể ăn được, an toàn", b: "Đã bị ôi thiu hoàn toàn", c: "Giá thành rất đắt đỏ", d: "Được tài trợ bởi chính phủ", correct: "A", exp: "'Edible' có nghĩa là ăn được, có thể tiêu thụ làm thức ăn." },
+                    { q: "Chiến dịch nâng cao nhận thức cộng đồng (awareness campaigns) tập trung dạy kỹ năng gì?", a: "Making a shopping list (Lập danh sách đi chợ)", b: "Trading items with fake money", c: "Vocational skills like fixing electricity", d: "Restricting kids screen time after 9pm", correct: "A", exp: "Body 2 viết: 'By teaching essential skills such as making a shopping list before visiting stores'." },
+                    { q: "Thói quen lập danh sách đi chợ mang lại kết quả trực tiếp nào?", a: "Significant household waste decline", b: "Generation gap disappears completely", c: "Substantial profits from carbon credits", d: "Anti-discrimination policy approval", correct: "A", exp: "Thói quen này 'would lead to a significant household waste decline'." },
+                    { q: "Giải pháp thứ hai đối với chính phủ trong Body 2 là gì?", a: "Standardise and simplify date labels", b: "Punish wasteful consumers harshly", c: "Close all local supermarkets immediately", d: "Provide free food to high school grads", correct: "A", exp: "Văn bản nêu rõ: 'governments need to standardise and simplify date labels on food packaging'." },
+                    { q: "Việc chuẩn hóa nhãn mác pháp lý giúp ngăn chặn hành vi nào của nhà bán lẻ?", a: "Discarding good items prematurely", b: "Recruiting ex-prisoners to store yards", c: "Offering bulk discounts to kids", d: "Using TikTok for product marketing", correct: "A", exp: "Sự chuẩn hóa này 'prevents retailers from discarding good items prematurely'." },
+                    { q: "Từ 'prematurely' có nghĩa là gì?", a: "Quá sớm, trước khi thực sự cần thiết", b: "Một cách chính xác tuyệt đối", c: "Muộn màng, trễ nải", d: "Công khai, minh bạch", correct: "A", exp: "Prematurely nghĩa là non nớt, quá sớm, chưa tới lúc đã thực hiện." },
+                    { q: "Từ nào trong đoạn 1 biểu thị ý nghĩa 'khối lượng khổng lồ gây choáng váng'?", a: "Staggering", b: "Confusing", c: "Edible", d: "Tailored", correct: "A", exp: "'Staggering volume' là khối lượng lớn đến mức gây kinh ngạc." },
+                    { q: "Từ 'produce' trong cụm 'fresh produce' đóng vai trò là loại từ gì?", a: "Danh từ - Nông sản tươi", b: "Động từ - Sản xuất", c: "Tính từ - Có năng suất", d: "Trạng từ - Đột ngột", correct: "A", exp: "Trong văn cảnh kinh tế/nông nghiệp, danh từ không đếm được 'produce' nghĩa là nông sản." },
+                    { q: "Cấu trúc 'prevent retailers from discarding' sử dụng giới từ gì?", a: "from", b: "to", c: "with", d: "against", correct: "A", exp: "Cấu trúc chuẩn luôn luôn là 'prevent someone from doing something'." },
+                    { q: "Bản dịch của câu kết luận khẳng định chủ thể nào có thể giải quyết vấn đề?", a: "Chính phủ và các tổ chức", b: "Học sinh cấp ba giỏi", c: "Người già và trẻ em", d: "Quản lý nhà tù và cựu tù", correct: "A", exp: "Bản dịch ghi rõ: 'các biện pháp từ chính phủ và các tổ chức có thể giải quyết vấn đề này'." },
+                    { q: "Từ 'spoils' trong cụm 'before it actually spoils' nghĩa là gì?", a: "Thực phẩm bị hư hỏng, ôi thiu", b: "Thực phẩm được nấu chín", c: "Hàng hóa được giảm giá mạnh", d: "Sự kiện do học sinh dẫn dắt", correct: "A", exp: "Spoil đối với đồ ăn nghĩa là bị phân hủy, ôi thiu không thể ăn được nữa." },
+                    { q: "Cụm từ 'bulk discounts' kích thích tâm lý gì của người mua?", a: "Ham rẻ mua số lượng lớn tích trữ", b: "Sợ hãi không dám đi siêu thị", c: "Muốn lập danh sách chi tiết chi tiêu", d: "Tự lập ngân sách cá nhân nghiêm túc", correct: "A", exp: "Bulk discount là giảm giá khi mua sỉ, khiến người ta ham rẻ mà mua quá đà (overbuy)." },
+                    { q: "Trạng từ 'mistakenly' chỉ hành động gì?", a: "Làm một việc do nhầm lẫn, ngộ nhận sai", b: "Làm một việc có kế hoạch bài bản", c: "Làm việc theo luật pháp ép buộc", d: "Làm việc rất hiệu quả tích cực", correct: "A", exp: "Mistakenly nghĩa là một cách sai lầm, do hiểu sai thông tin nhãn mác." },
+                    { q: "Điền từ vào chỗ trống: 'This single habit would lead to a significant ______ waste decline.'", a: "household", b: "prison", c: "academic", d: "corporate", correct: "A", exp: "Văn bản ghi nhận sự sụt giảm rác thải tại hộ gia đình: 'household waste decline'." },
+                    { q: "Chủ đề vĩ mô (Macro Topic) của đề luyện tập số 3 này là gì?", a: "FOOD (Thực phẩm và môi trường)", b: "CRIMES", c: "EDUCATION", d: "FAMILY", correct: "A", exp: "Đề bài tập trung phân tích vấn nạn lãng phí đồ ăn trên toàn thế giới thuộc chủ đề FOOD." }
+                ]
+            },
+            {
+                id: 4,
+                theme: "theme-crimes",
+                emoji1: "🧑‍⚖️",
+                emoji2: "📜",
+                subHeading: "Crimes - Recidivism & Rehabilitation",
+                rawPrompt: "Some people believe that criminals should be punished hard so they will not do it again. However, many people commit more crimes after being punished. Why is this the case? What solutions could be done to prevent this?",
+                outlineData: {
+                    intro: [
+                        { q: "Câu 1 – Paraphrase đề bài", desc: "It is said that people who break the law should be given harsh punishments not to reoffend but actually, many <span class='eng-phrase'>PRISONERS STILL</span> return to <span class='eng-phrase'>CRIMINAL PATHS</span> after leaving prison./ <span class='eng-phrase'>SERVING THEIR SENTENCES</span>." },
+                        { q: "Câu 2 – Trả lời câu hỏi đề bài", desc: "This problem happens due to some reasons, and effective measures <span class='eng-phrase'>FROM THE GOVERNMENT</span> should be taken to mitigate it." }
+                    ],
+                    body1: {
+                        topic: "Several reasons can explain why offenders return to crime after being punished.",
+                        ideas: [
+                            { core: "Sau khi ra tù, cựu tội phạm phải đối mặt với sự kỳ thị trong việc làm và nhà ở (<span class='eng-phrase'>after being released from prison, ex-criminals WILL HAVE TO face discrimination in employment and housing</span>).", impact: "Nhiều công ty có xu hướng từ chối thuê bất kỳ ai có tiền án (<span class='eng-phrase'>refuse to hire anyone with a criminal record</span>), trong khi chủ nhà cũng từ chối cho thuê, khiến họ rơi vào hoàn cảnh tuyệt vọng. Do đó, cựu tù nhân không có lựa chọn nào khác ngoài việc quay lại con đường phạm tội cũ vì họ sẵn có mạng lưới quan hệ từ trong tù." },
+                            { core: "Hệ thống nhà tù truyền thống chỉ tập trung vào trừng phạt thay vì giáo dục hoặc hướng nghiệp (<span class='eng-phrase'>traditional prison systems only concentrate on punishment instead of education or vocational training programs</span>).", impact: "Sau nhiều năm thụ án, họ ra tù mà không có bằng cấp hay kỹ năng nghề nghiệp, dẫn tới chật vật kiếm sống hợp pháp (<span class='eng-phrase'>struggle to have LEGAL JOBS TO MAKE ENDS MEET</span>). Kết quả họ đành sa ngã vào kỹ năng duy nhất họ biết: phạm tội." }
+                        ]
+                    },
+                    body2: {
+                        topic: "However, there are various workable solutions that governments could take to tackle this problem.",
+                        ideas: [
+                            { core: "Chính phủ có thể ban hành luật chống phân biệt đối xử để bảo vệ cựu tù nhân (<span class='eng-phrase'>governments can release anti-discrimination laws to protect former prisoners in employment and housing</span>).", impact: "Họ được đồng hành bởi các chương trình tái hòa nhập (<span class='eng-phrase'>re-entry/ REHABILITATION programs</span>) cung cấp hỗ trợ nhà ở tạm thời, tư vấn nghề nghiệp, môi giới việc làm. Giúp tỷ lệ tái phạm giảm đáng kể (<span class='eng-phrase'>reoffending rates drop significantly</span>)." },
+                            { core: "Giải pháp khác là chính phủ gây quỹ cho các chương trình giáo dục và đào tạo nghề trong tù (<span class='eng-phrase'>raise funds for education programs and vocational training in prisons</span>).", impact: "Chương trình gồm xóa mù chữ cơ bản, kỹ năng thực tế như làm mộc, sửa điện, nấu ăn và cấp chứng chỉ chuyên nghiệp (<span class='eng-phrase'>professional certifications</span>). Giúp cựu tù dễ dàng tìm việc làm hợp pháp, ít có nguy cơ tái phạm." }
+                        ]
+                    },
+                    conclusion: "In conclusion, this problem stems from several reasons such as discrimination from employers and hosts and lacking training programmes during prison time, but governments could implement a range of measures to address this problem."
+                },
+                essayData: [
+                    { type: "Introduction", en: "It is said that people who break the laws must be punished harshly so they do not commit it again, but many ex-criminals still reoffend after serving their sentences. This problem happens due to some reasons such as the discrimination from recruiters and the lack of training programmes in prisons, and effective measures from the governments and communities should be taken to mitigate it.", vi: "Người ta nói rằng những người vi phạm pháp luật phải bị trừng phạt nghiêm khắc để họ không phạm tội nữa, nhưng nhiều cựu tội phạm vẫn tái phạm sau khi chấp hành xong hình phạt. Vấn đề này xảy ra do một số nguyên nhân như sự phân biệt đối xử từ các nhà tuyển dụng và việc thiếu các chương trình đào tạo trong nhà tù, và các biện pháp hiệu quả từ chính phủ và cộng đồng cần được thực hiện để giảm thiểu tình trạng này." },
+                    { type: "Body 1", en: "Several reasons can explain why prisoners still commit crimes again after leaving prisons. Firstly, criminals do not have any jobs to do after being sentenced, because many employers do not want to recruit them to take over that job. This is because they worry that people who break the law will commit crimes again. As a result, many people return to their old criminal paths as they have many experiences and networks from prison. Secondly, traditional prison systems only focus on punishment instead of vocational training programs. For example, after many years in prison, ex-criminals are released without qualifications or job skills, leading to a struggle to find legal jobs to make ends meet.", vi: "Một số lý do có thể giải thích tại sao các tù nhân vẫn tiếp tục phạm tội sau khi ra tù. Thứ nhất, tội phạm không có bất kỳ công việc nào để làm sau khi chịu án, bởi vì nhiều người sử dụng lao động không muốn tuyển dụng họ đảm nhận công việc đó. Điều này là do họ lo lắng rằng những người vi phạm pháp luật sẽ tái phạm tội. Kết quả là, nhiều người quay trở lại con đường phạm tội cũ của họ vì họ có nhiều kinh nghiệm và mạng lưới quan hệ từ trong tù. Thứ hai, các hệ thống nhà tù truyền thống chỉ tập trung vào hình phạt thay vì các chương trình đào tạo nghề. Ví dụ, sau nhiều năm ở trong tù, các cựu tội phạm được thả tự do mà không có bằng cấp hoặc kỹ năng công việc, dẫn đến việc phải chật vật tìm kiếm những công việc hợp pháp để trang trải cuộc sống." },
+                    { type: "Body 2", en: "However, there are various workable solutions, such as creating more policies to support ex-criminals that each government could take to tackle this problem. The initial measure is that the government can pass policies about anti-discrimination laws to protect prisoners in employment and housing. For example, the re-entry programs give them temporary housing support, career counselling, and job placement services. As a result, the ex-prisoners can have a real chance to rebuild their lives, and thus the reoffending rates drop significantly. In addition, the government can fund educational programs and vocational training in prisons. For example, these programs contain basic literacy, practical job skills such as cooking, repairing electricity, and providing professional certifications. Therefore, ex-prisoners are able to find legal employment, and are less likely to return to crime.", vi: "Tuy nhiên, có nhiều giải pháp khả thi khác nhau, chẳng hạn như tạo ra nhiều chính sách hơn để hỗ trợ cựu tội phạm mà mỗi chính phủ có thể thực hiện để giải quyết vấn đề này. Biện pháp ban đầu là chính phủ có thể thông qua các chính sách về luật chống phân biệt đối xử để bảo vệ tù nhân trong việc làm và nhà ở. Ví dụ, các chương trình tái hòa nhập cung cấp cho họ sự hỗ trợ nhà ở tạm thời, tư vấn nghề nghiệp và dịch vụ giới thiệu việc làm. Kết quả là, các cựu tù nhân có thể có cơ hội thực sự để xây dựng lại cuộc sống của họ, và do đó tỷ lệ tái phạm giảm đáng kể. Ngoài ra, chính phủ có thể tài trợ cho các chương trình giáo dục và đào tạo nghề trong nhà tù. Ví dụ, các chương trình này bao gồm xóa mù chữ cơ bản, các kỹ năng công việc thực tế như nấu ăn, sửa chữa điện và cung cấp các chứng chỉ chuyên môn. Do đó, cựu tù nhân có thể tìm được việc làm hợp pháp và ít có nguy cơ quay lại con đường tội lỗi." },
+                    { type: "Conclusion", en: "In conclusion, there are many reasons why ex-prisoners can commit crimes, but effective solutions from the government and society can break down this cycle.", vi: "Tóm lại, có nhiều lý do khiến cựu tù nhân có thể phạm tội, nhưng các giải pháp hiệu quả từ chính phủ và xã hội có thể phá vỡ chu kỳ này." }
+                ],
+                vocabTable: [
+                    { word: "Ex-criminals", type: "n", desc: "Cựu tội phạm, người từng lầm lỡ" },
+                    { word: "Reoffend", type: "v", desc: "Tái phạm tội, lại vi phạm luật pháp" },
+                    { word: "Recruiters", type: "n", desc: "Nhà tuyển dụng nhân sự" },
+                    { word: "Sentenced", type: "v/adj", desc: "Bị tuyên án, chịu mức hình phạt pháp lý" },
+                    { word: "Criminal paths", type: "n", desc: "Con đường phạm tội tội lỗi" },
+                    { word: "Traditional", type: "adj", desc: "Mang tính truyền thống, cổ điển xưa cũ" },
+                    { word: "Vocational training", type: "n", desc: "Đào tạo nghề nghiệp, hướng nghiệp thực hành" },
+                    { word: "Qualifications", type: "n", desc: "Bằng cấp, chứng chỉ năng lực chuyên môn" },
+                    { word: "Make ends meet", type: "phrase", desc: "Trang trải cuộc sống, kiếm đủ tiền sống qua ngày" },
+                    { word: "Anti-discrimination", type: "adj", desc: "Chống phân biệt đối xử, kỳ thị" },
+                    { word: "Re-entry programs", type: "n", desc: "Chương trình tái hòa nhập cộng đồng cho cựu tù" },
+                    { word: "Counselling", type: "n", desc: "Hoạt động tư vấn, cho lời khuyên tâm lý/nghề nghiệp" },
+                    { word: "Job placement", type: "n", desc: "Hoạt động môi giới, sắp xếp giới thiệu việc làm" },
+                    { word: "Reoffending rate", type: "n", desc: "Tỷ lệ tái phạm tội trong xã hội" },
+                    { word: "Significantly", type: "adv", desc: "Một cách đáng kể, có ý nghĩa lớn" },
+                    { word: "Fund", type: "v/n", desc: "Tài trợ tiền, cấp vốn đầu tư / Quỹ tiền" },
+                    { word: "Basic literacy", type: "n", desc: "Sự xóa mù chữ cơ bản, biết đọc biết viết" },
+                    { word: "Repairing electricity", type: "n", desc: "Nghề sửa chữa điện lưới, điện dân dụng" },
+                    { word: "Professional", type: "adj", desc: "Mang tính chuyên nghiệp, chính quy" },
+                    { word: "Break down the cycle", type: "phrase", desc: "Phá vỡ vòng lặp luẩn quẩn không lối thoát" }
+                ],
+                grammarData: [
+                    { title: "Punished harshly so they do not commit it again", desc: "Mệnh đề chỉ mục đích phủ định trong tương lai sau hình phạt.", ex: "Criminals must be punished harshly so they do not reoffend." },
+                    { title: "Return to criminal paths after serving sentences", desc: "Trạng từ thời gian dùng danh động từ chỉ hoàn cảnh hoàn tất án phạt.", ex: "Many prisoners return to criminal paths after serving their sentences." },
+                    { title: "Refuse to hire anyone with a criminal record", desc: "Động từ đi kèm To-V mang tính khước từ tuyệt đối một đối tượng cụ thể.", ex: "Many companies tend to refuse to hire anyone with a criminal record." },
+                    { title: "No choices but + Verb bare", desc: "Thành ngữ chỉ trạng huống tuyệt lộ bế tắc, không còn con đường nào khác.", ex: "Ex-criminals have no choices but return to their old criminal paths." },
+                    { title: "Instead of + Noun/V-ing", desc: "Thay thế cho một hành động trạng thái không được ưu tiên.", ex: "Prison systems focus on punishment instead of vocational training programs." },
+                    { title: "Struggle to find legal jobs to make ends meet", desc: "Chuỗi động từ chỉ sự vất vả nỗ lực nhằm đạt mục đích sinh tồn tối thiểu.", ex: "Ex-criminals release without skills, leading to struggle to find legal jobs." },
+                    { title: "Pass policies about anti-discrimination laws", desc: "Cụm động từ pháp lý chỉ việc thông qua sắc luật chính quy.", ex: "The government can pass policies about anti-discrimination laws." },
+                    { title: "Give them temporary housing support", desc: "Động từ truyền tiếp hai tân ngữ (Tân ngữ gián tiếp + Tân ngữ trực tiếp).", ex: "The re-entry programs give them temporary housing support." },
+                    { title: "Are less likely to return to crime", desc: "Cấu trúc so sánh kém khả năng xảy ra một hành vi tiêu cực.", ex: "Ex-prisoners are able to find legal jobs, and are less likely to return to crime." },
+                    { title: "Break down the cycle", desc: "Cụm động từ ẩn dụ về việc chấm dứt triệt để một hệ quả lặp lại tệ hại.", ex: "Effective solutions from society can break down this cycle." }
+                ],
+                quizData: [
+                    { q: "Cụm từ nào dùng để paraphrase cho 'criminals should be punished hard' trong mở bài?", a: "people who break the laws must be punished harshly", b: "students leave high school without money skills", c: "consumers frequently overbuy green tech items", d: "young generation spending less time with senior citizens", correct: "A", exp: "Mở bài viết: 'people who break the laws must be punished harshly' để thay cho cụm đề bài." },
+                    { q: "Nguyên nhân đầu tiên khiến cựu tù nhân dễ tái phạm tội (reoffend) sau khi thả tự do là gì?", a: "Đối mặt sự kỳ thị từ nhà tuyển dụng và chủ nhà", b: "Do giá điện và học phí tăng mạnh", c: "Do nghiện xem video ngắn trên TikTok", d: "Do nhãn mác hạn sử dụng gây bối rối", correct: "A", exp: "Nguyên nhân cốt lõi là 'discrimination from recruiters and the lack of training programmes'." },
+                    { q: "Tại sao nhiều nhà tuyển dụng (employers) không muốn nhận cựu tù nhân vào làm việc?", a: "Họ lo lắng những người này sẽ tiếp tục phạm tội lần nữa", b: "Họ ghét những người không có tài khoản ngân sách cá nhân", c: "Họ không có đủ quỹ tài trợ từ chính phủ", d: "Họ bắt buộc phải dùng tiền giả để trả lương", correct: "A", exp: "Nguyên văn: 'They worry that people who break the law will commit crimes again'." },
+                    { q: "Cựu tù nhân có lợi thế nguy hiểm gì khi quay lại con đường tội lỗi cũ?", a: "Kinh nghiệm và mạng lưới mối quan hệ từ trong tù", b: "Chứng chỉ sửa điện quốc tế", c: "Danh sách mua sắm thực phẩm thông minh", d: "Sự ủng hộ tài chính của cha mẹ họ", correct: "A", exp: "Họ có 'many experiences and networks from prison' tích lũy trong thời gian giam giữ." },
+                    { q: "Hệ thống nhà tù truyền thống (traditional prison systems) bị phê phán vì chỉ tập trung vào điều gì?", a: "Punishment (Hình phạt trừng trị)", b: "Vocational training (Dạy nghề)", c: "Basic literacy (Xóa mù chữ)", d: "Career counselling (Tư vấn nghề)", correct: "A", exp: "Bài viết nêu: 'traditional prison systems only focus on punishment instead of vocational training'." },
+                    { q: "Thành ngữ 'make ends meet' xuất hiện trong Body 1 có nghĩa là gì?", a: "Trang trải cuộc sống, kiếm đủ tiền sinh tồn", b: "Gặp gỡ bạn bè cũ trong tù", c: "Kết thúc một năm học cấp ba", d: "Hủy bỏ một quy định pháp luật", correct: "A", exp: "'Make ends meet' có nghĩa là kiếm vừa đủ tiền để chi trả các nhu cầu thiết yếu cơ bản." },
+                    { q: "Chính phủ có thể ban hành loại luật nào để bảo vệ quyền lợi của cựu tù nhân?", a: "Anti-discrimination laws (Luật chống phân biệt đối xử)", b: "Food safety standardization laws", c: "Digital screen time restriction laws", d: "Traditional subject mandatory laws", correct: "A", exp: "Body 2 viết: 'the government can pass policy about anti-discrimination laws to protect prisoners'." },
+                    { q: "Chương trình tái hòa nhập (re-entry programs) cung cấp dịch vụ hỗ trợ nào sau đây?", a: "Housing support, career counselling, job placement", b: "Bulk discounts and food coupon trading", c: "Interactive lessons with TikTok platforms", d: "Phone-free community festivals weekly", correct: "A", exp: "Liệt kê rõ ràng: 'temporary housing support, career counselling and job placement services'." },
+                    { q: "Kỹ năng thực tế nào KHÔNG được liệt kê trong chương trình đào tạo tại tù ở Body 2?", a: "Kỹ năng lập trình web và marketing trực tuyến", b: "Cooking (Nấu ăn)", c: "Repairing electricity (Sửa điện)", d: "Basic literacy (Xóa mù chữ cơ bản)", correct: "A", exp: "Các kỹ năng gồm xóa mù chữ, nấu ăn, sửa điện; không nhắc tới lập trình web." },
+                    { q: "Mục tiêu tối thượng của các giải pháp từ chính phủ và xã hội là phá vỡ cái gì?", a: "Break down this cycle (Phá vỡ vòng lặp tội lỗi)", b: "Break down the student-led school events", c: "Break down the standard food period", d: "Break down the family bondings", correct: "A", exp: "Câu kết luận khẳng định giải pháp giúp 'break down this cycle' - bẻ gãy chu kỳ tái phạm." },
+                    { q: "Từ 'sentenced' có nghĩa là gì?", a: "Bị tuyên án phạt tù", b: "Được khen thưởng học bổng", c: "Bị xao nhãng bài học", d: "Được giảm giá mua sắm", correct: "A", exp: "'Sentenced' chỉ việc tòa án đưa ra phán quyết mức án phạt tù dành cho tội phạm." },
+                    { q: "Từ 'recruiters' thuộc nhóm đối tượng stakeholders nào?", a: "Nhà tuyển dụng lao động", b: "Người cho thuê nhà dân", c: "Quản giáo nhà tù địa phương", d: "Chuyên gia tư vấn tâm lý học đường", correct: "A", exp: "Recruiters đồng nghĩa với employers, những người săn đầu người, tuyển chọn lao động." },
+                    { q: "Điền giới từ đúng vào câu sau: 'ex-criminals are released ______ qualifications or job skills...'", a: "without", b: "with", c: "by", d: "over", correct: "A", exp: "Tù nhân bị thả tự do mà không có bằng cấp, dùng giới từ phủ định 'without'." },
+                    { q: "Trạng từ 'harshly' bổ nghĩa cho động từ 'punished' mang sắc thái thế nào?", a: "Trừng phạt một cách nghiêm khắc, tàn nhẫn", b: "Trừng phạt rất nhẹ nhàng, cảnh cáo", c: "Không trừng phạt mà thả tự do luôn", d: "Tặng quà giáo dục thay cho phạt", correct: "A", exp: "Harshly nghĩa là khắc nghiệt, dữ dội, nghiêm khắc ở mức độ cao." },
+                    { q: "Cụm từ 'job placement services' mang lại lợi ích gì cho cựu tù nhân?", a: "Giúp họ được giới thiệu và sắp xếp việc làm hợp pháp", b: "Giúp họ tìm được phòng giam rộng rãi hơn", c: "Giúp họ mua sắm hàng tạp hóa không mất tiền", d: "Giúp họ học tiếng Anh bậc Thạc sỹ", correct: "A", exp: "Job placement services là dịch vụ môi giới, kết nối cung cầu lao động, tìm việc làm." },
+                    { q: "Từ nào trong văn bản biểu thị ý nghĩa 'ít có khả năng xảy ra hơn'?", a: "Less likely", b: "Dramatically", c: "Significantly", d: "Workable", correct: "A", exp: "Cấu trúc 'less likely to + V' nghĩa là ít có cơ hội / ít có nguy cơ xảy ra hành động đó hơn." },
+                    { q: "Cơ quan chủ quản nào chịu trách nhiệm cấp ngân sách (fund) cho giáo dục trong tù?", a: "The government (Chính phủ)", b: "High school parents", c: "Retail store owners", d: "TikTok content creators", correct: "A", exp: "Body 2 khẳng định: 'In addition, the government can fund educational programs...'" },
+                    { q: "Chứng chỉ nào được cấp sau khi phạm nhân hoàn thành khóa học nghề?", a: "Professional certifications", b: "Secondary education degrees", c: "Fake money vouchers", d: "Shopping list approvals", correct: "A", exp: "Nguyên văn: 'and providing professional certifications' để họ dễ xin việc." },
+                    { q: "Hoàn cảnh 'desperate circumstances' trong phần outline tiếng Việt chỉ trạng thái gì?", a: "Hoàn cảnh tuyệt vọng, bế tắc, cùng đường", b: "Hoàn cảnh giàu có, sung túc nhờ đầu tư", c: "Trạng thái gia đình gắn kết hạnh phúc", d: "Không khí lễ hội sôi động không điện thoại", correct: "A", exp: "Desperate circumstances là tình thế ngặt nghèo, tuyệt vọng, ép người ta vào đường cùng." },
+                    { q: "Mô hình lập luận cấu trúc đoạn Body của hệ thống này tuân theo tỷ lệ nào trong Logic Framework?", a: "Cách lập luận 40/60 (Core idea / Impact + Example)", b: "Lập luận một chiều 100% lý thuyết", c: "Không cần đưa ra giải pháp thực tế", d: "Liệt kê 10 lý do liên tiếp không giải thích", correct: "A", exp: "Hệ thống áp dụng chuẩn Logic Framework© với cách lập luận 40% ý chính cốt lõi và 60% phân tích sâu hệ quả/ví dụ." }
+                ]
+            },
+            {
+                id: 5,
+                theme: "theme-family",
+                emoji1: "🧑‍🦳",
+                emoji2: "📱",
+                subHeading: "Family - Intergenerational Gap",
+                rawPrompt: "In many countries, young people are spending less time with older people. What are the reasons for this? What can be done to solve this problem?",
+                outlineData: {
+                    intro: [
+                        { q: "Câu 1 – Paraphrase đề bài", desc: "In many nations, the younger generation is devoting fewer hours to senior citizens." },
+                        { q: "Câu 2 – Trả lời câu hỏi đề bài", desc: "This problem happens due to several reasons, <span class='eng-phrase'>SUCH AS THE ADDICTION TO DIGITAL DEVICES AND GENERATION GAP</span>, and effective measures <span class='eng-phrase'>FROM THE GOVERNMENT AND COMMUNITIES</span> should be taken to mitigate it." }
+                    ],
+                    body1: {
+                        topic: "Several reasons can explain why the youth spend less time with older individuals.",
+                        ideas: [
+                            { core: "Thế hệ trẻ ngày nay bị nghiện sử dụng điện thoại thông minh và các nền t Bản mạng xã hội (<span class='eng-phrase'>the young generation is addicted to using smartphones and social media</span>).", impact: "Họ dành ít thời gian tương tác trực tiếp (<span class='eng-phrase'>spend less time interacting face-to-face</span>). Ví dụ họ dán mắt vào màn hình (<span class='eng-phrase'>glued to their screens</span>), phớt lờ các cuộc hội thoại xung quanh trong các dịp tụ họp gia đình, khiến khoảng cách thế hệ nới rộng (<span class='eng-phrase'>generation gaps widen</span>), thời gian chia sẻ ý nghĩa biến mất." },
+                            { core: "Mỗi thế hệ có những hệ quy chiếu văn hóa khác nhau và thiếu chủ đề chung để giao tiếp (<span class='eng-phrase'>each generation has different cultural references and lacks common topics to communicate</span>).", impact: "Ví dụ trong khi giới trẻ thích K-pop và trò chơi trực tuyến, người cao tuổi có xu hướng chỉ xem tin tức chính trị và chương trình truyền thống. Do đó, người trẻ tránh né các cuộc tương tác kéo dài vì cảm thấy gượng gạo, khó chịu (<span class='eng-phrase'>feel so awkward and uncomfortable</span>), làm suy yếu sự gắn kết gia đình." }
+                        ]
+                    },
+                    body2: {
+                        topic: "However, there are various workable solutions that <span class='eng-phrase'>THE GOVERNMENT AND COMMUNITIES</span> could take to tackle this problem.",
+                        ideas: [
+                            { core: "Phương pháp ban đầu là chính quyền và trung tâm cộng đồng tổ chức các sự kiện cấm điện thoại (<span class='eng-phrase'>organise phone-free events to encourage face-to-face interactions</span>).", impact: "Ví dụ như các nước Châu Âu tổ chức ngày hội gia đình ngoài trời, lễ hội ẩm thực, thể thao cộng đồng. Kết quả giúp các thế hệ cùng xây dựng trải nghiệm chia sẻ chung mà không bị màn hình ngắt quãng." },
+                            { core: "Biện pháp khác là trường học và viện dưỡng lão có thể hợp tác vận hành các chương trình liên thế hệ hàng tháng (<span class='eng-phrase'>schools and nursing homes can collaborate to operate intergenerational programs monthly</span>).", impact: "Ví dụ học sinh dạy người già dùng công nghệ, ngược lại người cao tuổi (<span class='eng-phrase'>THE ELDERLY</span>) truyền dạy kỹ năng truyền thống. Qua đó cả hai thế hệ tìm thấy điểm chung thông qua trải nghiệm bổ ích (<span class='eng-phrase'>meaningful and rewarding experiences</span>), xóa bỏ khoảng cách sở thích." }
+                        ]
+                    },
+                    conclusion: "In conclusion, even though several reasons make teenagers devote less time to <span class='eng-phrase'>THE elderly</span>, authorities and communities can take some measures to tackle it effectively."
+                },
+                essayData: [
+                    { type: "Introduction", en: "In many nations, the younger generation is devoting fewer hours to senior citizens. This problem happens due to several reasons, such as the addiction to digital devices and the generation gap, and effective measures from the government and communities should be taken to mitigate it.", vi: "Ở nhiều quốc gia, thế hệ trẻ đang dành ít thời gian hơn cho những công dân cao tuổi. Vấn đề này xảy ra do một số nguyên nhân, chẳng hạn như sự nghiện ngập các thiết bị kỹ thuật số và khoảng cách thế hệ, và các biện pháp hiệu quả từ chính phủ và cộng đồng cần được thực hiện để giảm thiểu tình trạng này." },
+                    { type: "Body 1", en: "Several reasons can explain why the youth spend less time with older individuals. Firstly, the young generation is addicted to using smartphones and social media, which makes them spend less time interacting face-to-face. For instance, teenagers are constantly glued to their screens, ignoring conversations around them during family gatherings. Consequently, the generation gaps widen and meaningful sharing time completely disappears. Secondly, each generation has different cultural references and lacks common topics to communicate. For example, while teenagers are usually keen on K-pop and online games, senior citizens tend to only watch political news and traditional programmes. Consequently, the younger generation may avoid lengthy interactions with older people because they feel so awkward and uncomfortable. Therefore, their family bonding will be weakened.", vi: "Một số lý do có thể giải thích tại sao giới trẻ dành ít thời gian hơn cho những người lớn tuổi. Thứ nhất, thế hệ trẻ nghiện sử dụng điện thoại thông minh và mạng xã hội, điều này khiến họ dành ít thời gian tương tác trực tiếp hơn. Chẳng hạn, thanh thiếu niên liên tục dán mắt vào màn hình, phớt lờ các cuộc trò chuyện xung quanh trong các buổi tụ họp gia đình. Do đó, khoảng cách thế hệ ngày càng rộng và thời gian chia sẻ có ý nghĩa hoàn toàn biến mất. Thứ hai, mỗi thế hệ có những tham chiếu văn hóa khác nhau và thiếu các chủ đề chung để giao tiếp. Ví dụ, trong khi thanh thiếu niên thường thích K-pop và các trò chơi trực tuyến, thì những công dân cao tuổi lại có xu hướng chỉ xem tin tức chính trị và các chương trình truyền thống. Do đó, thế hệ trẻ có thể tránh các tương tác kéo dài với những người lớn tuổi vì họ cảm thấy rất gượng gạo và không thoải mái. Vì vậy, sự gắn kết gia đình của họ sẽ bị suy yếu." },
+                    { type: "Body 2", en: "However, there are various workable solutions that the government and communities could take to tackle this problem. The initial method is that governments and community centres can organise phone-free events to encourage face-to-face interactions between generations. Take European countries as an example, there are several festivals such as outdoor family days, food events, and community sports activities, helping strengthen family bonds. As a result, generations build on shared experiences without any screens interrupting them. Another measure is that schools and nursing homes can collaborate to operate intergenerational programs monthly. For instance, students teach older people technology, and the elderly teach children traditional skills. Therefore, both generations can build common ground through meaningful and rewarding experiences, breaking the interest gap.", vi: "Tuy nhiên, có nhiều giải pháp khả thi khác nhau mà chính phủ và cộng đồng có thể thực hiện để giải quyết vấn đề này. Phương pháp ban đầu là các chính phủ và trung tâm cộng đồng có thể tổ chức các sự kiện không sử dụng điện thoại để khuyến khích sự tương tác trực tiếp giữa các thế hệ. Lấy các nước châu Âu làm ví dụ, có một số lễ hội như ngày gia đình ngoài trời, sự kiện ẩm thực và các hoạt động thể thao cộng đồng, giúp thắt chặt tình cảm gia đình. Kết quả là, các thế hệ xây dựng dựa trên những trải nghiệm được chia sẻ mà không có bất kỳ màn hình nào làm gián đoạn họ. Một biện pháp khác là các trường học và viện dưỡng lão có thể hợp tác để vận hành các chương trình giữa các thế hệ hàng tháng. Chẳng hạn, học sinh dạy công nghệ cho người lớn tuổi và người già dạy trẻ em các kỹ năng truyền thống. Do đó, cả hai thế hệ có thể xây dựng nền tảng chung thông qua các trải nghiệm có ý nghĩa và bổ ích, phá vỡ khoảng cách về sở thích." },
+                    { type: "Conclusion", en: "In conclusion, even though several reasons make teenagers devote less time to the elderly, authorities and communities can take some measures to tackle it effectively.", vi: "Tóm lại, mặc dù một số lý do khiến thanh thiếu niên dành ít thời gian hơn cho người già, chính quyền và cộng đồng có thể thực hiện một số biện pháp để giải quyết vấn đề này một cách hiệu quả." }
+                ],
+                vocabTable: [
+                    { word: "Devoting", type: "v", desc: "Cống hiến, dành trọn vẹn thời gian/tâm huyết" },
+                    { word: "Senior citizens", type: "n", desc: "Công dân cao tuổi, người già lớn tuổi" },
+                    { word: "Addiction", type: "n", desc: "Sự nghiện ngập, phụ thuộc không thể dứt" },
+                    { word: "Generation gap", type: "n", desc: "Khoảng cách giữa các thế hệ" },
+                    { word: "Interacting", type: "v", desc: "Tương tác qua lại lẫn nhau" },
+                    { word: "Face-to-face", type: "adj/adv", desc: "Trực diện, mặt đối mặt, trực tiếp" },
+                    { word: "Glued to", type: "adj/phrase", desc: "Dán mắt vào, gắn chặt không rời vào cái gì" },
+                    { word: "Gatherings", type: "n", desc: "Các cuộc tụ họp, sum họp đông người" },
+                    { word: "Cultural references", type: "n", desc: "Hệ quy chiếu văn hóa, điển tích văn hóa" },
+                    { word: "Keen on", type: "adj", desc: "Yêu thích, đam mê say mê cái gì" },
+                    { word: "Political news", type: "n", desc: "Tin tức chính trị, thời sự nhà nước" },
+                    { word: "Lengthy", type: "adj", desc: "Dài dòng, kéo dài tốn thời gian" },
+                    { word: "Awkward", type: "adj", desc: "Gượng gạo, vụng về, lúng túng khó xử" },
+                    { word: "Bonding", type: "n", desc: "Sự gắn kết tình cảm, thắt chặt mối quan hệ" },
+                    { word: "Weakened", type: "v/adj", desc: "Bị làm cho suy yếu, nhạt nhòa đi" },
+                    { word: "Phone-free", type: "adj", desc: "Không có điện thoại, cấm dùng điện thoại" },
+                    { word: "Nursing home", type: "n", desc: "Viện dưỡng lão dành cho người cao tuổi" },
+                    { word: "Collaborate", type: "v", desc: "Hợp tác, cộng tác cùng làm dự án chung" },
+                    { word: "Intergenerational", type: "adj", desc: "Giữa các thế hệ với nhau, đa thế hệ" },
+                    { word: "Common ground", type: "n", desc: "Điểm chung, nền tảng tiếng nói chung" }
+                ],
+                grammarData: [
+                    { title: "Devote time to someone/something", desc: "Dành trọn vẹn quỹ thời gian cho một đối tượng cụ thể.", ex: "The younger generation is devoting fewer hours to senior citizens." },
+                    { title: "Addicted to using smartphones", desc: "Cấu trúc tính từ đi với giới từ to + V-ing chỉ sự nghiện ngập hành vi.", ex: "The young generation is addicted to using smartphones." },
+                    { title: "Which makes them spend less time", desc: "Mệnh đề quan hệ thế vị cho cả mệnh đề phía trước tạo hệ quả.", ex: "They use social media, which makes them spend less time interacting." },
+                    { title: "Constantly glued to their screens", desc: "Trạng từ tần suất đi kèm cụm tính từ chỉ một trạng thái tiêu cực lặp lại.", ex: "Teenagers are constantly glued to their screens." },
+                    { title: "Be keen on + Noun/V-ing", desc: "Cụm tính từ biểu thị niềm đam mê, sở thích mãnh liệt.", ex: "Teenagers are usually keen on K-pop and online games." },
+                    { title: "Avoid lengthy interactions because they feel...", desc: "Động từ 'avoid' bắt buộc đi kèm danh từ hoặc danh động từ tránh né.", ex: "Younger generation may avoid lengthy interactions with older people." },
+                    { title: "Organise phone-free events to encourage...", desc: "Động từ chỉ mục đích To-V đứng sau một cụm danh từ hành động.", ex: "Community centres can organise phone-free events to encourage interaction." },
+                    { title: "Take A as an example", desc: "Cấu trúc đưa ra dẫn chứng, ví dụ minh họa trực quan trong văn viết.", ex: "Take European countries as an example, there are several festivals." },
+                    { title: "Build on shared experiences without any screens interrupting them", desc: "Giới từ without đi kèm cấu trúc ngữ cảnh danh động từ bị xen ngang.", ex: "Generations build on shared experiences without any screens interrupting them." },
+                    { title: "Collaborate to operate something", desc: "Hợp tác phối hợp hành động giữa hai tổ chức độc lập.", ex: "Schools and nursing homes can collaborate to operate programs." }
+                ],
+                quizData: [
+                    { q: "Cụm từ 'senior citizens' trong đoạn mở bài dùng để thay thế cho từ nào trong đề bài?", a: "older people", b: "young people", c: "students", d: "offenders", correct: "A", exp: "'Senior citizens' nghĩa là công dân cao tuổi, paraphrase cho 'older people'." },
+                    { q: "Hành vi nào của thanh thiếu niên bị chỉ trích trong các cuộc tụ họp gia đình (family gatherings)?", a: "Glued to their screens (Dán mắt vào màn hình)", b: "Overbuying local groceries", c: "Learning wood cutting in prison yards", d: "Managing fake budget events", correct: "A", exp: "Nguyên văn: 'teenagers are constantly glued to their screens, ignoring conversations'." },
+                    { q: "Hệ quả của việc dán mắt vào màn hình điện thoại đối với mối quan hệ gia đình là gì?", a: "Generation gaps widen and sharing time disappears", b: "Financial mistakes decrease significantly", c: "Food waste decline in landfills", d: "Anti-discrimination policies are passed", correct: "A", exp: "Hành vi này khiến 'the generation gaps widen and meaningful sharing time completely disappears'." },
+                    { q: "Sở thích văn hóa phổ biến của thanh thiếu niên được liệt kê trong Body 1 là gì?", a: "K-pop and online games", b: "Political news and traditional shows", c: "Carbon credits trading", d: "Wood cutting and electric fixing", correct: "A", exp: "Văn bản chỉ rõ: 'while teenagers are usually keen on K-pop and online games'." },
+                    { q: "Người cao tuổi (senior citizens) có xu hướng thích xem nội dung gì trên truyền hình?", a: "Political news and traditional programmes", b: "K-pop music awards online", c: "TikTok short videos streaming", d: "Interactive educational simulations", correct: "A", exp: "Nguyên văn: 'senior citizens tend to only watch political news and traditional programmes'." },
+                    { q: "Tại sao giới trẻ lại né tránh các cuộc hội thoại kéo dài với người già?", a: "Because they feel so awkward and uncomfortable", b: "Because they want to make ends meet", c: "Because they are punished harshly by courts", d: "Because they are setting up school fairs", correct: "A", exp: "Họ né tránh 'because they feel so awkward and uncomfortable' do lệch gu." },
+                    { q: "Giải pháp đầu tiên được đề xuất cho chính quyền và trung tâm cộng đồng là gì?", a: "Organise phone-free events (Tổ chức sự kiện cấm điện thoại)", b: "Launch global food waste standard labels", c: "Provide pocket money to kindergarten kids", d: "Build more traditional prison blocks", correct: "A", exp: "Body 2 viết: 'governments and community centres can organise phone-free events'." },
+                    { q: "Khu vực địa lý nào được lấy làm ví dụ điển hình tổ chức ngày hội gia đình ngoài trời?", a: "European countries (Các quốc gia Châu Âu)", b: "Asian countries", c: "American countries", d: "African countries", correct: "A", exp: "Văn bản ghi: 'Take European countries as an example, there are several festivals...'" },
+                    { q: "Hai tổ chức nào được đề xuất hợp tác (collaborate) hành tháng với nhau trong Body 2?", a: "Schools and nursing homes (Trường học và viện dưỡng lão)", b: "Prisons and recruiters", c: "Supermarkets and local farms", d: "Governments and TikTok offices", correct: "A", exp: "Đề xuất giải pháp 2: 'schools and nursing homes can collaborate to operate intergenerational programs monthly'." },
+                    { q: "Trong chương trình liên thế hệ, học sinh sẽ dạy người già nội dung gì?", a: "Technology (Công nghệ thông tin)", b: "Traditional skills", c: "How to fix electricity", d: "How to overbuy groceries", correct: "A", exp: "Nguyên văn phân vai: 'students teach older people technology'." },
+                    { q: "Người cao tuổi sẽ truyền dạy lại kỹ năng gì cho học sinh nhỏ tuổi?", a: "Traditional skills (Kỹ năng truyền thống)", b: "How to download TikTok videos", c: "How to budget personal bank accounts", d: "How to reoffend after prison life", correct: "A", exp: "Người già sẽ truyền đạt: 'and the elderly teach children traditional skills'." },
+                    { q: "Mục đích cốt lõi của chương trình liên thế hệ hàng tháng này là gì?", a: "Build common ground and break interest gap", b: "Generate substantial profit from trading", c: "Reduce food contamination in supermarkets", d: "Avoid anti-discrimination lawsuits", correct: "A", exp: "Giúp hai thế hệ 'build common ground through meaningful and rewarding experiences, breaking the interest gap'." },
+                    { q: "Từ 'awkward' xuất hiện trong bài đọc mang ý nghĩa gì?", a: "Gượng gạo, lúng túng, khó xử", b: "Vô cùng thoải mái, thích thú", c: "Mang tính chuyên nghiệp cao", d: "Có hại cho sức khỏe", correct: "A", exp: "Awkward chỉ cảm giác ngượng nghịu, không tự nhiên, khó bắt chuyện." },
+                    { q: "Từ nào đồng nghĩa với từ ' elderly' trong đoạn kết luận?", a: "Senior citizens", b: "Youth", c: "Teenagers", d: "Recruiters", correct: "A", exp: "Elderly và senior citizens đều chỉ tầng lớp người cao tuổi trong xã hội." },
+                    { q: "Điền giới từ thích hợp vào cụm từ sau: 'teenagers are usually keen ______ K-pop...'", a: "on", b: "at", c: "with", d: "for", correct: "A", exp: "Cấu trúc tính từ cố định luôn là 'be keen on something' (đam mê, yêu thích cái gì)." },
+                    { q: "Từ 'bonding' trong cụm 'family bonding' có nghĩa là gì?", a: "Sự gắn kết tình cảm, thắt chặt quan hệ", b: "Sự tranh chấp pháp lý tài sản", c: "Sự phân biệt đối xử nhà ở", d: "Khoảng thời gian xao nhãng bài học", correct: "A", exp: "Bonding nghĩa là sự kết nối, thắt chặt sợi dây tình cảm thân thiết." },
+                    { q: "Tính từ 'intergenerational' có gốc từ 'generation' mang ý nghĩa gì?", a: "Giữa các thế hệ với nhau, mang tính liên thế hệ", b: "Xóa bỏ hoàn toàn một thế hệ", c: "Chỉ riêng thế hệ thanh thiếu niên", d: "Thuộc về công nghệ kỹ thuật số", correct: "A", exp: "Tiền tố inter- nghĩa là qua lại giữa các đối tượng; intergenerational nghĩa là liên thế hệ." },
+                    { q: "Trạng từ 'completely' bổ nghĩa cho động từ 'disappears' mang mức độ nào?", a: "Hoàn toàn, 100% không còn dấu vết", b: "Một phần nhỏ, không đáng kể", c: "Có khả năng xảy ra trong tương lai", d: "Hiếm khi xảy ra trong đời sống", correct: "A", exp: "Completely nghĩa là hoàn toàn, tuyệt đối, nhấn mạnh sự biến mất sạch sẽ của thời gian chia sẻ." },
+                    { q: "Cụm từ 'common ground' được dịch nghĩa tiếng Việt chính xác là gì?", a: "Nền tảng chung, tiếng nói chung", b: "Mảnh đất công cộng ngoài trời", c: "Sân chơi thể thao của viện dưỡng lão", d: "Bãi chôn lấp rác thải đô thị", correct: "A", exp: "Common ground là thành ngữ chỉ điểm chung, sự đồng điệu quan điểm, tiếng nói chung giữa hai bên." },
+                    { q: "Chủ đề chính (Topic) của đề luyện tập số 5 này là gì?", a: "FAMILY (Gia đình và xã hội)", b: "CRIMES", c: "FOOD", d: "EDUCATION", correct: "A", exp: "Toàn bộ bài viết xoay quanh mối quan hệ giữa các thế hệ thành viên trong gia đình thuộc chủ đề FAMILY." }
+                ]
+            }
+        ];
+
+        let currentActiveTopicIndex = 0;
+        let selectedAnswersStore = {};
+        let webAudioContextInstance = null;
+
+        /* --- INITIALIZATION CARRIER FUNCTION --- */
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSidebarTopicCards();
+            loadActiveTopicDataToWorkspace();
+        });
+
+        /* --- SIDEBAR RENDERING SYSTEM --- */
+        function renderSidebarTopicCards() {
+            const container = document.getElementById('sidebarTopicList');
+            container.innerHTML = '';
+            
+            DATA_STORE.forEach((topic, index) => {
+                const card = document.createElement('div');
+                card.className = `topic-card ${index === currentActiveTopicIndex ? 'active' : ''}`;
+                card.onclick = () => selectActiveTopicIndex(index);
+                
+                card.innerHTML = `
+                    <div class="badge">${topic.subHeading.split(' - ')[0]}</div>
+                    <h4>Đề Luyện Tập Lớp Số 0${topic.id}</h4>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectActiveTopicIndex(index) {
+            currentActiveTopicIndex = index;
+            selectedAnswersStore = {}; // Reset quiz state container
+            
+            // Re-render dashboard components
+            renderSidebarTopicCards();
+            loadActiveTopicDataToWorkspace();
+            switchTab(0); // Auto revert back to tab 1 upon swap
+        }
+
+        /* --- MAIN DATA LOADER INJECTOR --- */
+        function loadActiveTopicDataToWorkspace() {
+            const topic = DATA_STORE[currentActiveTopicIndex];
+            
+            // Inject Dynamic Themes Class to body
+            document.body.className = topic.theme;
+            
+            // Alter Dynamic Headings and Logo labels
+            document.getElementById('sysSubHeading').innerText = topic.subHeading;
+            document.getElementById('displayPromptText').innerText = topic.rawPrompt;
+
+            // Generate customized dynamic SVG Background pattern matching topic theme colors
+            injectDynamicThemeSvgBackground(topic);
+
+            // Trigger Tab Content render pools
+            buildOutlineTabContent(topic.outlineData);
+            buildEssayTabContent(topic.essayData);
+            buildVocabTabContent(topic.vocabTable, topic.grammarData);
+            buildQuizTabContent(topic.quizData);
+        }
+
+        /* --- DYNAMIC THEME SVG GENERATOR --- */
+        function injectDynamicThemeSvgBackground(topic) {
+            const primaryColorHex = getComputedStyle(document.body).getPropertyValue('--primary-color').trim();
+            const secondaryColorHex = getComputedStyle(document.body).getPropertyValue('--secondary-color').trim();
+            
+            // Create specialized procedural custom SVG encoded base64 containing representations of emoji icons
+            const svgContent = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+                    <text x="20" y="40" font-size="22" opacity="0.45">${topic.emoji1}</text>
+                    <text x="70" y="90" font-size="22" opacity="0.45">${topic.emoji2}</text>
+                    <circle cx="15" cy="85" r="4" fill="${primaryColorHex}" opacity="0.25"/>
+                    <circle cx="95" cy="25" r="5" fill="${secondaryColorHex}" opacity="0.25"/>
+                </svg>
+            `;
+            const encodedSvg = btoa(unescape(encodeURIComponent(svgContent)));
+            document.getElementById('bgSvgPattern').style.backgroundImage = `url('data:image/svg+xml;base64,${encodedSvg}')`;
+        }
+
+        /* --- TAB SWITCH MECHANICS --- */
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+            
+            tabs.forEach((tab, idx) => {
+                if(idx === tabIndex) tab.classList.add('active');
+                else tab.classList.remove('active');
+            });
+
+            panes.forEach((pane, idx) => {
+                if(idx === tabIndex) pane.classList.add('active');
+                else pane.classList.remove('active');
+            });
+        }
+
+        /* --- TAB CONTENT GENERATORS --- */
+        
+        // Tab 1: Template Framework and Outlines 
+        function buildOutlineTabContent(outline) {
+            const target = document.getElementById('tabContent-Outline');
+            
+            let html = `
+                <div class="framework-box">
+                    <strong>Logical Framework© (Tỷ lệ lập luận chuẩn hóa 40/60):</strong> Đoạn văn Thân bài thiết kế tối ưu cấu trúc tư duy tuyến tính bản xứ: 40% câu chủ đề nền móng, 60% đào sâu cốt lõi bằng phân tích hệ quả chi tiết hệ thống hóa phối hợp ví dụ thực tế thuyết phục.
+                </div>
+            `;
+
+            // Introduction Section Outline
+            html += `
+                <div class="outline-section">
+                    <div class="outline-section-title">1. Hiểu đề & viết Introduction:</div>
+            `;
+            outline.intro.forEach(item => {
+                html += `
+                    <div class="outline-item">
+                        <strong>${item.q}:</strong> ${item.desc}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            // Body 1 Section Outline
+            html += `
+                <div class="outline-section">
+                    <div class="outline-section-title">2. Gợi ý lập luận & phân chia BODY 1:</div>
+                    <div class="outline-item"><strong>Topic Sentence:</strong> ${outline.body1.topic}</div>
+            `;
+            outline.body1.ideas.forEach((idea, i) => {
+                html += `
+                    <div class="outline-item" style="margin-left: 30px;">
+                        <strong>Supporting Idea ${i+1}:</strong> <br>
+                        • Core idea: ${idea.core}<br>
+                        • Impact/Example: ${idea.impact}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            // Body 2 Section Outline
+            html += `
+                <div class="outline-section">
+                    <div class="outline-section-title">3. Gợi ý lập luận & phân chia BODY 2:</div>
+                    <div class="outline-item"><strong>Topic Sentence:</strong> ${outline.body2.topic}</div>
+            `;
+            outline.body2.ideas.forEach((idea, i) => {
+                html += `
+                    <div class="outline-item" style="margin-left: 30px;">
+                        <strong>Supporting Idea ${i+1}:</strong> <br>
+                        • Core idea: ${idea.core}<br>
+                        • Impact/Example: ${idea.impact}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            // Conclusion Section Outline
+            html += `
+                <div class="outline-section">
+                    <div class="outline-section-title">4. Viết Kết bài (Conclusion):</div>
+                    <div class="outline-item">Bạn hãy viết Conclusion bằng cách tóm tắt các luận điểm chính và khẳng định lại quan điểm của mình nhé!</div>
+                    <div class="outline-item"><strong>Mẫu Conclusion chuẩn Band 7.5+:</strong> <br>${outline.conclusion}</div>
+                </div>
+            `;
+
+            target.innerHTML = html;
+        }
+
+        // Tab 2: High Band Essay + Intelligent Sectional Translations
+        function buildEssayTabContent(paragraphs) {
+            const target = document.getElementById('tabContent-Essay');
+            target.innerHTML = '';
+            
+            paragraphs.forEach((p, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'essay-paragraph-wrapper';
+                
+                wrapper.innerHTML = `
+                    <span class="essay-type-tag">${p.type}</span>
+                    <div class="essay-text">${p.en}</div>
+                    <button class="translation-toggle-btn" onclick="toggleParagraphTranslation(${idx})">
+                        <span>🌟</span> Mở dịch đoạn này
+                    </button>
+                    <div class="translation-box" id="transBox-${idx}">${p.vi}</div>
+                `;
+                target.appendChild(wrapper);
+            });
+        }
+
+        function toggleParagraphTranslation(idx) {
+            const box = document.getElementById(`transBox-${idx}`);
+            if(box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+            }
+        }
+
+        // Tab 3: Vocabulary Matrices & Structural Grammar Components
+        function buildVocabTabContent(vocab, grammar) {
+            const target = document.getElementById('tabContent-Vocab');
+            
+            let html = `
+                <div class="outline-section-title">📊 Hệ Thống Từ Vựng Học Thuật Cốt Lõi</div>
+                <div class="table-responsive">
+                    <table class="vocab-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">Từ vựng / Cấu trúc</th>
+                                <th style="width: 15%">Loại từ</th>
+                                <th style="width: 60%">Nghĩa tiếng Việt đầy đủ ngữ cảnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            vocab.forEach(w => {
+                html += `
+                    <tr>
+                        <td class="word-cell">${w.word}</td>
+                        <td class="type-cell">[${w.type}]</td>
+                        <td class="desc-cell">${w.desc}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="grammar-section">
+                    <div class="outline-section-title">✍️ 10 Cấu Trúc Ngữ Pháp Nâng Cao Chiến Thuật</div>
+            `;
+
+            grammar.forEach((g, idx) => {
+                html += `
+                    <div class="grammar-card">
+                        <div class="grammar-title">
+                            <span>Mẫu cấu trúc 0${idx+1}</span> ${g.title}
+                        </div>
+                        <div class="grammar-desc">${g.desc}</div>
+                        <div class="grammar-example"><strong>Ví dụ:</strong> ${g.ex}</div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            target.innerHTML = html;
+        }
+
+        // Tab 4: 20 Advanced Tactical Quiz Question Arrays
+        function buildQuizTabContent(quizArr) {
+            const target = document.getElementById('tabContent-Quiz');
+            target.innerHTML = '';
+
+            quizArr.forEach((qItem, qIndex) => {
+                const box = document.createElement('div');
+                box.className = 'quiz-item-box';
+                box.id = `quizBox-${qIndex}`;
+
+                // Construct option arrays and subject to JS Shuffle Algorithm logic layout mapping
+                const rawOptions = [
+                    { key: 'A', text: qItem.a },
+                    { key: 'B', text: qItem.b },
+                    { key: 'C', text: qItem.c },
+                    { key: 'D', text: qItem.d }
+                ];
+                
+                const shuffledOptions = shuffleArrayPool([...rawOptions]);
+
+                let optionsHtml = `<div class="options-grid">`;
+                shuffledOptions.forEach(opt => {
+                    optionsHtml += `
+                        <button class="option-btn" 
+                                id="optBtn-${qIndex}-${opt.key}" 
+                                onclick="registerUserSelection(${qIndex}, '${opt.key}', '${qItem.correct}')">
+                            <strong>${opt.key}.</strong> ${opt.text}
+                        </button>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                box.innerHTML = `
+                    <div class="quiz-q-text"><strong>Câu ${qIndex + 1}:</strong> ${qItem.q}</div>
+                    ${optionsHtml}
+                    <div class="explanation-card" id="explainCard-${qIndex}">
+                        <div class="explanation-title">Giải thích đáp án chi tiết từ Chuyên gia:</div>
+                        <div class="explanation-body">
+                            <strong>Đáp án đúng: ${qItem.correct}</strong> — ${qItem.exp}
+                        </div>
+                    </div>
+                `;
+                target.appendChild(box);
+            });
+        }
+
+        /* --- JAVASCRIPT SHUFFLE ARRAY ALGORITHM --- */
+        function shuffleArrayPool(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        /* --- INTERACTIVE SELECTION HANDLING & SOUND SYNTHESIS --- */
+        function registerUserSelection(qIndex, chosenKey, correctKey) {
+            // Block re-selection mechanics once registered locally
+            if (selectedAnswersStore[qIndex] !== undefined) return;
+            
+            selectedAnswersStore[qIndex] = chosenKey;
+            
+            const targetBox = document.getElementById(`quizBox-${qIndex}`);
+            const chosenBtn = document.getElementById(`optBtn-${qIndex}-${chosenKey}`);
+            const correctBtn = document.getElementById(`optBtn-${qIndex}-${correctKey}`);
+            
+            // Disable all option buttons within this specified group
+            const allGroupBtns = targetBox.querySelectorAll('.option-btn');
+            allGroupBtns.forEach(btn => btn.classList.add('disabled'));
+
+            if (chosenKey === correctKey) {
+                chosenBtn.classList.add('correct-state');
+                triggerWebAudioBeepToneSoundSystem(523.25, 'triangle', 0.15); // Ding Audio Note
+                setTimeout(() => triggerWebAudioBeepToneSoundSystem(659.25, 'triangle', 0.2), 150);
+                triggerVisualConfettiShowerEffect();
+            } else {
+                chosenBtn.classList.add('wrong-state');
+                correctBtn.classList.add('correct-state'); // Flash target correct answer
+                targetBox.classList.add('shake-anim');
+                triggerWebAudioBeepToneSoundSystem(180, 'sawtooth', 0.4); // Téo tèo tèo sound frequency
+                setTimeout(() => targetBox.classList.remove('shake-anim'), 400);
+            }
+        }
+
+        /* --- WEB AUDIO API PROCEDURAL GENERATOR --- */
+        function triggerWebAudioBeepToneSoundSystem(frequency, type, duration) {
+            try {
+                if (!webAudioContextInstance) {
+                    webAudioContextInstance = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                if (webAudioContextInstance.state === 'suspended') {
+                    webAudioContextInstance.resume();
+                }
+
+                const osc = webAudioContextInstance.createOscillator();
+                const gain = webAudioContextInstance.createGain();
+                
+                osc.type = type;
+                osc.frequency.value = frequency;
+                
+                gain.gain.setValueAtTime(0.15, webAudioContextInstance.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.00001, webAudioContextInstance.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(webAudioContextInstance.destination);
+                
+                osc.start();
+                osc.stop(webAudioContextInstance.currentTime + duration);
+            } catch (e) {
+                console.log("AudioContext initializing block protocol prevented: ", e);
+            }
+        }
+
+        /* --- VISUAL CONFETTI PARTICLES SHOWER ENGINE --- */
+        function triggerVisualConfettiShowerEffect() {
+            const colors = ['#00D26A', '#FF4757', '#3B82F6', '#F59E0B', '#8E2DE2'];
+            for (let i = 0; i < 20; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.transform = `scale(${Math.random() * 0.8 + 0.5})`;
+                conf.style.animationDelay = Math.random() * 0.4 + 's';
+                document.body.appendChild(conf);
+                
+                setTimeout(() => conf.remove(), 2500);
+            }
+        }
+
+        /* --- EVALUATE SUBMISSION & SCORE GENERATOR --- */
+        function evaluateQuizSystem() {
+            const currentTopic = DATA_STORE[currentActiveTopicIndex];
+            const totalQuestionsCount = currentTopic.quizData.length;
+            
+            let userCorrectCount = 0;
+            
+            // Highlight and unpack all expert explanation boxes simultaneously
+            for (let i = 0; i < totalQuestionsCount; i++) {
+                const expCard = document.getElementById(`explainCard-${i}`);
+                if(expCard) expCard.classList.add('visible');
+                
+                if (selectedAnswersStore[i] === currentTopic.quizData[i].correct) {
+                    userCorrectCount++;
+                } else if (selectedAnswersStore[i] === undefined) {
+                    // Automatically reveal unanswered questions by lighting up correct option
+                    const correctKey = currentTopic.quizData[i].correct;
+                    const correctBtn = document.getElementById(`optBtn-${i}-${correctKey}`);
+                    if(correctBtn) correctBtn.classList.add('correct-state');
+                }
+            }
+
+            // Determine personalization parameters using grade bandwidth ranges
+            let emoji = "💪";
+            let title = "Cố Lên Nhé Bác!";
+            let feedback = "Hãy rà soát lại bảng giải thích chi tiết phía dưới để nắm bắt chuẩn xác toàn bộ hệ từ vựng học thuật của Ms Lê Hằng nhé!";
+
+            if (userCorrectCount === totalQuestionsCount) {
+                emoji = "👑";
+                title = "Thiên Tài Xuất Chúng!";
+                feedback = "Tuyệt đối hoàn hảo! Bạn đã thấu suốt toàn diện tư duy cấu trúc Logic Framework lẫn hệ thống ngữ pháp Band 8.0+.";
+                triggerVisualConfettiShowerEffect();
+            } else if (userCorrectCount >= 15) {
+                emoji = "🔥";
+                title = "Làm Tốt Lắm Học Viên Xuất Sắc!";
+                feedback = "Năng lực xử lý cấu trúc Writing cực kỳ nhạy bén. Bạn chắc chắn đã sẵn sàng chinh phục mọi nấc thang Band điểm cao!";
+            } else if (userCorrectCount >= 10) {
+                emoji = "✨";
+                title = "Khá Tốt, Hãy Phát Huy!";
+                feedback = "Nắm bắt được phần lớn đại ý bài mẫu, chú ý rèn luyện thêm tư duy phân tích hệ quả 40/60 để bứt phá lập luận.";
+            }
+
+            // Fire up final scorecard report inside modal layout view screen
+            document.getElementById('modalEmoji').innerText = emoji;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalScoreValue').innerText = `${userCorrectCount}/${totalQuestionsCount}`;
+            document.getElementById('modalFeedbackText').innerText = feedback;
+            
+            document.getElementById('scoreModal').classList.add('open');
+        }
+
+        function closeScoreModal() {
+            document.getElementById('scoreModal').classList.remove('open');
+            // Force jump user window focus down directly to view details analytical report logs
+            document.getElementById('quizBox-0').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
